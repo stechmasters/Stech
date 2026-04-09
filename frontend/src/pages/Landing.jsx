@@ -121,30 +121,37 @@ const Landing = () => {
               <div className="mb-6 flex flex-wrap justify-center gap-3 lg:justify-start">
                 <Button 
                   onClick={handleCall}
-                  className="group bg-gradient-to-br from-green-400 to-green-600 font-black shadow-2xl shadow-green-500/30 transition-all hover:scale-105 hover:shadow-green-500/50"
+                  className="group relative overflow-hidden bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-6 font-black shadow-lg shadow-emerald-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/50"
                 >
-                  <Phone className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
+                  <Phone className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
                   Llamar Ahora
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-emerald-400 to-emerald-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                 </Button>
                 <Button 
                   onClick={handleSMS}
-                  className="group bg-gradient-to-br from-blue-500 to-blue-700 font-black shadow-2xl shadow-blue-500/30 transition-all hover:scale-105 hover:shadow-blue-500/50"
+                  className="group relative overflow-hidden bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-6 font-black shadow-lg shadow-blue-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50"
                 >
-                  <MessageSquare className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
+                  <MessageSquare className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
                   Enviar Texto
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                 </Button>
                 <Button 
                   onClick={handleWhatsApp}
-                  className="group bg-gradient-to-br from-yellow-200 to-yellow-400 font-black text-black shadow-2xl shadow-yellow-500/30 transition-all hover:scale-105 hover:shadow-yellow-500/50"
+                  className="group relative overflow-hidden bg-gradient-to-r from-green-400 via-green-500 to-emerald-500 px-6 py-6 font-black text-white shadow-lg shadow-green-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-green-500/50"
                 >
-                  🟢 WhatsApp
+                  <svg className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                  WhatsApp
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-green-300 to-emerald-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                 </Button>
                 <Button 
                   onClick={handleEmail}
-                  className="group bg-gradient-to-br from-red-400 to-red-600 font-black shadow-2xl shadow-red-500/30 transition-all hover:scale-105 hover:shadow-red-500/50"
+                  className="group relative overflow-hidden bg-gradient-to-r from-rose-500 to-pink-600 px-6 py-6 font-black shadow-lg shadow-rose-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-rose-500/50"
                 >
-                  <Mail className="mr-2 h-4 w-4 transition-transform group-hover:rotate-12" />
+                  <Mail className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
                   Email
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rose-400 to-pink-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                 </Button>
               </div>
               <div className="animate-pulse text-lg font-extrabold text-yellow-400">
@@ -309,30 +316,37 @@ const Landing = () => {
             <div className="flex flex-wrap justify-center gap-3">
               <Button 
                 onClick={handleCall}
-                className="group bg-gradient-to-br from-green-400 to-green-600 font-black shadow-2xl shadow-green-500/30 transition-all hover:scale-105"
+                className="group relative overflow-hidden bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-6 font-black shadow-lg shadow-emerald-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/50"
               >
-                <Phone className="mr-2 h-4 w-4 group-hover:rotate-12" />
+                <Phone className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
                 Solicitar Servicio
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-emerald-400 to-emerald-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               </Button>
               <Button 
                 onClick={handleSMS}
-                className="group bg-gradient-to-br from-blue-500 to-blue-700 font-black shadow-2xl shadow-blue-500/30 transition-all hover:scale-105"
+                className="group relative overflow-hidden bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-6 font-black shadow-lg shadow-blue-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50"
               >
-                <MessageSquare className="mr-2 h-4 w-4 group-hover:rotate-12" />
+                <MessageSquare className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
                 Mensaje de Texto
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               </Button>
               <Button 
                 onClick={handleWhatsApp}
-                className="group bg-gradient-to-br from-yellow-200 to-yellow-400 font-black text-black shadow-2xl shadow-yellow-500/30 transition-all hover:scale-105"
+                className="group relative overflow-hidden bg-gradient-to-r from-green-400 via-green-500 to-emerald-500 px-6 py-6 font-black text-white shadow-lg shadow-green-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-green-500/50"
               >
-                🟢 WhatsApp
+                <svg className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                WhatsApp
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-green-300 to-emerald-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               </Button>
               <Button 
                 onClick={handleEmail}
-                className="group bg-gradient-to-br from-red-400 to-red-600 font-black shadow-2xl shadow-red-500/30 transition-all hover:scale-105"
+                className="group relative overflow-hidden bg-gradient-to-r from-rose-500 to-pink-600 px-6 py-6 font-black shadow-lg shadow-rose-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-rose-500/50"
               >
-                <Mail className="mr-2 h-4 w-4 group-hover:rotate-12" />
+                <Mail className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
                 Email
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rose-400 to-pink-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               </Button>
             </div>
           </Card>
@@ -391,13 +405,19 @@ const Landing = () => {
       {/* Floating WhatsApp Button */}
       <button
         onClick={handleWhatsApp}
-        className="group fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-4 font-black text-white shadow-2xl shadow-green-500/50 transition-all hover:scale-110 hover:shadow-green-500/70"
+        className="group fixed bottom-8 left-8 z-50 flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-4 font-black text-white shadow-2xl shadow-green-500/50 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-green-500/70"
       >
-        💬 WhatsApp
-        <span className="absolute -right-1 -top-1 flex h-4 w-4">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-          <span className="relative inline-flex h-4 w-4 rounded-full bg-green-500"></span>
+        <div className="relative flex items-center gap-2">
+          <svg className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+          </svg>
+          <span className="hidden transition-all duration-300 group-hover:inline-block sm:inline-block">WhatsApp</span>
+        </div>
+        <span className="absolute -right-1 -top-1 flex h-5 w-5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-300 opacity-75"></span>
+          <span className="relative inline-flex h-5 w-5 rounded-full bg-green-400"></span>
         </span>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-green-400 to-emerald-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
       </button>
     </div>
   );
