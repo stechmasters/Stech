@@ -57,42 +57,42 @@ const Landing = () => {
     <div className="min-h-screen overflow-hidden">
       {/* Animated Background Particles */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800"></div>
         <div 
-          className="absolute left-0 top-0 h-96 w-96 animate-pulse rounded-full bg-blue-500/10 blur-3xl"
+          className="absolute left-0 top-0 h-96 w-96 animate-pulse rounded-full bg-blue-400/20 blur-3xl"
           style={{ transform: `translateY(${scrollY * 0.3}px)` }}
         ></div>
         <div 
-          className="absolute bottom-0 right-0 h-96 w-96 animate-pulse rounded-full bg-yellow-500/10 blur-3xl delay-1000"
+          className="absolute bottom-0 right-0 h-96 w-96 animate-pulse rounded-full bg-yellow-400/20 blur-3xl delay-1000"
           style={{ transform: `translateY(${-scrollY * 0.2}px)` }}
         ></div>
       </div>
 
       {/* Topbar */}
-      <div className="sticky top-0 z-50 border-b border-white/5 bg-slate-950/80 backdrop-blur-2xl">
+      <div className="sticky top-0 z-50 border-b border-white/10 bg-slate-900/90 backdrop-blur-2xl">
         <div className="container mx-auto px-4 py-3">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3 transition-transform hover:scale-105">
               <img 
                 src={images.logo}
                 alt="Logo Tech Masters Solutions" 
-                className="h-16 w-16 rounded-2xl border border-white/10 object-cover shadow-2xl shadow-blue-500/20 transition-shadow hover:shadow-blue-500/40"
+                className="h-16 w-16 rounded-2xl border border-white/10 object-cover shadow-2xl shadow-blue-400/30 transition-shadow hover:shadow-blue-400/50"
               />
               <div>
                 <h1 className="bg-gradient-to-r from-white via-blue-100 to-yellow-200 bg-clip-text text-lg font-black leading-tight text-transparent">
                   Tech Masters Solutions
                 </h1>
-                <p className="text-sm font-bold text-cyan-400">Energía y Tecnología para tu Hogar y Negocio</p>
+                <p className="text-sm font-bold text-cyan-300">Energía y Tecnología para tu Hogar y Negocio</p>
               </div>
             </div>
             <div className="flex flex-wrap gap-2">
-              <div className="group rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm font-bold backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+              <div className="group rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-bold text-white backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/20">
                 📍 {contactInfo.location}
               </div>
-              <div className="group rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm font-bold backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+              <div className="group rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-bold text-white backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/20">
                 📞 {contactInfo.phoneFormatted}
               </div>
-              <div className="group rounded-full border border-white/10 bg-white/5 px-3 py-2 text-sm font-bold backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+              <div className="group rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-bold text-white backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/20">
                 ⚡ Same Day Service
               </div>
             </div>
@@ -105,7 +105,7 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <div className="grid items-center gap-8 lg:grid-cols-2">
             <div className="animate-fade-in-up text-center lg:text-left">
-              <h2 className="mb-6 text-5xl font-black leading-[1.1] tracking-tight lg:text-7xl">
+              <h2 className="mb-6 text-5xl font-black leading-[1.1] tracking-tight text-white lg:text-7xl">
                 Soluciones profesionales de{' '}
                 <span className="relative inline-block">
                   <span className="bg-gradient-to-r from-white via-yellow-200 to-yellow-400 bg-clip-text text-transparent">
@@ -114,7 +114,7 @@ const Landing = () => {
                   <div className="absolute -bottom-2 left-0 h-1 w-full bg-gradient-to-r from-yellow-400/0 via-yellow-400/60 to-yellow-400/0"></div>
                 </span>
               </h2>
-              <p className="mb-8 text-lg leading-relaxed text-slate-300 lg:text-xl">
+              <p className="mb-8 text-lg leading-relaxed text-slate-100 lg:text-xl">
                 En Tech Masters Solutions ayudamos a hogares y negocios en Connecticut con reparaciones eléctricas, 
                 diseño web y soporte técnico. Servicio rápido, imagen profesional y atención confiable.
               </p>
@@ -173,7 +173,7 @@ const Landing = () => {
       {/* Banner Section */}
       <section className="py-6">
         <div className="container mx-auto px-4">
-          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl transition-all hover:border-white/20 hover:shadow-blue-500/30">
+          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl transition-all hover:border-white/20 hover:shadow-blue-400/30">
             <img 
               src={images.banner}
               alt="Banner Tech Masters Solutions" 
@@ -187,10 +187,10 @@ const Landing = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
-            <h3 className="mb-3 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-5xl font-black text-transparent">
+            <h3 className="mb-3 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-5xl font-black text-transparent">
               Nuestros Servicios
             </h3>
-            <p className="mx-auto max-w-3xl text-lg text-slate-300">
+            <p className="mx-auto max-w-3xl text-lg text-slate-200">
               Presentación moderna y profesional para que el cliente entienda rápido qué haces y te contacte más fácil.
             </p>
           </div>
@@ -198,15 +198,15 @@ const Landing = () => {
             {services.map((service, index) => (
               <Card 
                 key={service.id} 
-                className="group border-white/10 bg-white/5 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-white/20 hover:shadow-blue-500/30"
+                className="group border-white/10 bg-white/5 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-white/20 hover:shadow-blue-400/30"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <CardHeader>
-                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-yellow-400/20 to-blue-500/20 text-3xl shadow-lg transition-all group-hover:scale-110 group-hover:shadow-blue-500/50">
+                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-yellow-400/20 to-blue-400/20 text-3xl shadow-lg transition-all group-hover:scale-110 group-hover:shadow-blue-400/50">
                     {service.icon}
                   </div>
-                  <CardTitle className="text-xl">{service.title}</CardTitle>
-                  <CardDescription className="text-slate-300">{service.description}</CardDescription>
+                  <CardTitle className="text-xl text-white">{service.title}</CardTitle>
+                  <CardDescription className="text-slate-200">{service.description}</CardDescription>
                 </CardHeader>
               </Card>
             ))}
@@ -340,7 +340,7 @@ const Landing = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 bg-slate-950/50 py-12 backdrop-blur-lg">
+      <footer className="border-t border-white/10 bg-slate-900/80 py-12 backdrop-blur-lg">
         <div className="container mx-auto px-4">
           <div className="grid gap-8 md:grid-cols-3">
             <div className="flex items-center gap-4">
@@ -349,7 +349,7 @@ const Landing = () => {
                 alt="Logo Tech Masters Solutions" 
                 className="h-16 w-16 rounded-2xl border border-white/10 object-cover shadow-lg"
               />
-              <div className="text-sm text-slate-400">
+              <div className="text-sm text-slate-300">
                 <strong className="text-lg text-white">Tech Masters Solutions</strong><br />
                 {contactInfo.location}<br />
                 {contactInfo.phoneFormatted}<br />
@@ -358,7 +358,7 @@ const Landing = () => {
             </div>
             
             <div className="text-center">
-              <p className="mb-4 text-slate-400">Síguenos en redes sociales</p>
+              <p className="mb-4 text-slate-300">Síguenos en redes sociales</p>
               <div className="flex justify-center gap-3">
                 {Object.entries(socialMedia).map(([platform, url]) => {
                   if (!url || !socialIcons[platform]) return null;
@@ -370,7 +370,7 @@ const Landing = () => {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`rounded-full border border-white/20 bg-white/5 p-3 text-white transition-all hover:scale-110 ${colorClass}`}
+                      className={`rounded-full border border-white/20 bg-white/10 p-3 text-white transition-all hover:scale-110 ${colorClass}`}
                     >
                       <IconComponent className="h-5 w-5" />
                     </a>
@@ -379,7 +379,7 @@ const Landing = () => {
               </div>
             </div>
             
-            <div className="text-center text-slate-400 md:text-right">
+            <div className="text-center text-slate-300 md:text-right">
               <p className="text-lg font-bold text-white">Energía y Tecnología</p>
               <p>para tu Hogar y Negocio</p>
               <p className="mt-4 text-xs">© 2025 Tech Masters Solutions</p>
