@@ -39,10 +39,15 @@ app = FastAPI()
 api_router = APIRouter(prefix="/api")
 
 # Configure CORS
-frontend_url = os.environ.get("FRONTEND_URL", "http://localhost:3000")
+cors_origins_env = os.environ.get("CORS_ORIGINS", "*")
+if cors_origins_env == "*":
+    cors_origins = ["*"]
+else:
+    cors_origins = [origin.strip() for origin in cors_origins_env.split(",")]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[frontend_url],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -293,7 +298,8 @@ async def forgot_password(request_data: ForgotPasswordRequest):
     })
     
     # In production, send email. For now, log it
-    reset_link = f"https://tech-ct.preview.emergentagent.com/reset-password?token={reset_token}"
+    frontend_url = os.environ.get("FRONTEND_URL", "http://localhost:3000")
+    reset_link = f"{frontend_url}/reset-password?token={reset_token}"
     logger.info(f"Password reset link for {email}: {reset_link}")
     
     return {"message": "If the email exists, a reset link has been sent"}
@@ -365,7 +371,7 @@ async def update_settings(settings: SettingsUpdate, request: Request):
 @api_router.get("/services")
 async def get_services():
     """Get all services"""
-    services = await db.services.find().to_list(100)
+    services = await db.services.find({}, {"_id": 1, "icon": 1, "title": 1, "description": 1}).to_list(100)
     return [{"id": str(s["_id"]), **{k: v for k, v in s.items() if k != "_id"}} for s in services]
 
 @api_router.post("/services", response_model=ServiceResponse)
@@ -394,7 +400,7 @@ async def delete_service(service_id: str, request: Request):
 @api_router.get("/reviews")
 async def get_reviews():
     """Get all reviews"""
-    reviews = await db.reviews.find().to_list(100)
+    reviews = await db.reviews.find({}, {"_id": 1, "rating": 1, "text": 1, "author": 1}).to_list(100)
     return [{"id": str(r["_id"]), **{k: v for k, v in r.items() if k != "_id"}} for r in reviews]
 
 @api_router.post("/reviews", response_model=ReviewResponse)
