@@ -1,118 +1,184 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Label } from '../components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { 
-  Settings, 
-  Star, 
-  DollarSign, 
-  Wrench,
-  Trash2,
-  Plus,
-  Save
-} from 'lucide-react';
+import { Settings, Star, DollarSign, Wrench, Trash2, Plus, Save, LogOut, Share2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Admin = () => {
-  // Estado para servicios
-  const [services, setServices] = useState([
-    { id: 1, icon: '⚡', title: 'Reparaciones Eléctricas', description: 'Diagnóstico, reparación y soluciones eléctricas rápidas y seguras.' },
-    { id: 2, icon: '💻', title: 'Diseño Web', description: 'Páginas modernas para negocios que buscan verse profesionales.' },
-    { id: 3, icon: '🛠', title: 'Soporte Técnico', description: 'Ayuda con computadoras, configuración, optimización y reparación.' }
-  ]);
-
-  // Estado para reseñas
-  const [reviews, setReviews] = useState([
-    { id: 1, rating: 5, text: 'Muy profesional y rápido. Excelente servicio.', author: 'Cliente Local' },
-    { id: 2, rating: 5, text: 'Me resolvió el problema eléctrico el mismo día.', author: 'Cliente en Connecticut' },
-    { id: 3, rating: 5, text: 'Buena atención, imagen profesional y servicio confiable.', author: 'Cliente Comercial' }
-  ]);
-
-  // Estado para métodos de pago
-  const [paymentMethods, setPaymentMethods] = useState({
-    zelle: '',
-    cashapp: '',
-    venmo: ''
-  });
-
-  // Estado para configuración general
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  
+  const [loading, setLoading] = useState(true);
+  const [services, setServices] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [paymentMethods, setPaymentMethods] = useState({ zelle: '', cashapp: '', venmo: '' });
+  const [socialMedia, setSocialMedia] = useState({ facebook: '', instagram: '', twitter: '', linkedin: '', youtube: '', tiktok: '' });
   const [generalSettings, setGeneralSettings] = useState({
-    phone: '2033170884',
-    email: 'stechmasters@gmail.com',
-    location: 'Connecticut',
-    companyName: 'Tech Masters Solutions',
-    tagline: 'Energía y Tecnología para tu Hogar y Negocio'
+    phone: '',
+    email: '',
+    location: '',
+    companyName: '',
+    tagline: ''
   });
-
-  // Nuevo servicio
   const [newService, setNewService] = useState({ icon: '', title: '', description: '' });
   const [newReview, setNewReview] = useState({ rating: 5, text: '', author: '' });
 
-  const handleAddService = () => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const [settingsRes, servicesRes, reviewsRes, paymentsRes, socialRes] = await Promise.all([
+        axios.get(`${BACKEND_URL}/api/settings`, { withCredentials: true }),
+        axios.get(`${BACKEND_URL}/api/services`, { withCredentials: true }),
+        axios.get(`${BACKEND_URL}/api/reviews`, { withCredentials: true }),
+        axios.get(`${BACKEND_URL}/api/payments`, { withCredentials: true }),
+        axios.get(`${BACKEND_URL}/api/social-media`, { withCredentials: true })
+      ]);
+      
+      setGeneralSettings(settingsRes.data);
+      setServices(servicesRes.data);
+      setReviews(reviewsRes.data);
+      setPaymentMethods(paymentsRes.data);
+      setSocialMedia(socialRes.data);
+    } catch (error) {
+      toast.error('Error al cargar datos');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
+
+  const handleAddService = async () => {
     if (!newService.title || !newService.description) {
       toast.error('Por favor completa todos los campos del servicio');
       return;
     }
-    const service = {
-      id: services.length + 1,
-      icon: newService.icon || '🔧',
-      title: newService.title,
-      description: newService.description
-    };
-    setServices([...services, service]);
-    setNewService({ icon: '', title: '', description: '' });
-    toast.success('Servicio agregado correctamente');
+    
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/api/services`,
+        { icon: newService.icon || '🔧', title: newService.title, description: newService.description },
+        { withCredentials: true }
+      );
+      setServices([...services, response.data]);
+      setNewService({ icon: '', title: '', description: '' });
+      toast.success('Servicio agregado correctamente');
+    } catch (error) {
+      toast.error('Error al agregar servicio');
+    }
   };
 
-  const handleDeleteService = (id) => {
-    setServices(services.filter(s => s.id !== id));
-    toast.success('Servicio eliminado');
+  const handleDeleteService = async (id) => {
+    try {
+      await axios.delete(`${BACKEND_URL}/api/services/${id}`, { withCredentials: true });
+      setServices(services.filter(s => s.id !== id));
+      toast.success('Servicio eliminado');
+    } catch (error) {
+      toast.error('Error al eliminar servicio');
+    }
   };
 
-  const handleAddReview = () => {
+  const handleAddReview = async () => {
     if (!newReview.text || !newReview.author) {
       toast.error('Por favor completa todos los campos de la reseña');
       return;
     }
-    const review = {
-      id: reviews.length + 1,
-      rating: newReview.rating,
-      text: newReview.text,
-      author: newReview.author
-    };
-    setReviews([...reviews, review]);
-    setNewReview({ rating: 5, text: '', author: '' });
-    toast.success('Reseña agregada correctamente');
+    
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/api/reviews`,
+        newReview,
+        { withCredentials: true }
+      );
+      setReviews([...reviews, response.data]);
+      setNewReview({ rating: 5, text: '', author: '' });
+      toast.success('Reseña agregada correctamente');
+    } catch (error) {
+      toast.error('Error al agregar reseña');
+    }
   };
 
-  const handleDeleteReview = (id) => {
-    setReviews(reviews.filter(r => r.id !== id));
-    toast.success('Reseña eliminada');
+  const handleDeleteReview = async (id) => {
+    try {
+      await axios.delete(`${BACKEND_URL}/api/reviews/${id}`, { withCredentials: true });
+      setReviews(reviews.filter(r => r.id !== id));
+      toast.success('Reseña eliminada');
+    } catch (error) {
+      toast.error('Error al eliminar reseña');
+    }
   };
 
-  const handleSavePayments = () => {
-    toast.success('Métodos de pago actualizados correctamente');
-    console.log('Payment methods:', paymentMethods);
+  const handleSavePayments = async () => {
+    try {
+      await axios.put(`${BACKEND_URL}/api/payments`, paymentMethods, { withCredentials: true });
+      toast.success('Métodos de pago actualizados correctamente');
+    } catch (error) {
+      toast.error('Error al actualizar métodos de pago');
+    }
   };
 
-  const handleSaveGeneralSettings = () => {
-    toast.success('Configuración general guardada correctamente');
-    console.log('General settings:', generalSettings);
+  const handleSaveGeneralSettings = async () => {
+    try {
+      await axios.put(`${BACKEND_URL}/api/settings`, generalSettings, { withCredentials: true });
+      toast.success('Configuración general guardada correctamente');
+    } catch (error) {
+      toast.error('Error al guardar configuración');
+    }
   };
+
+  const handleSaveSocialMedia = async () => {
+    try {
+      await axios.put(`${BACKEND_URL}/api/social-media`, socialMedia, { withCredentials: true });
+      toast.success('Redes sociales actualizadas correctamente');
+    } catch (error) {
+      toast.error('Error al actualizar redes sociales');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-slate-900 to-slate-800">
+        <div className="text-center">
+          <div className="mb-4 inline-block h-12 w-12 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+          <p className="text-slate-300">Cargando panel administrativo...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 p-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-black text-white">Panel Administrativo</h1>
-          <p className="text-slate-400">Gestiona el contenido de tu página web</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="mb-2 text-4xl font-black text-white">Panel Administrativo</h1>
+            <p className="text-slate-400">Gestiona el contenido de tu página web</p>
+            {user && <p className="mt-1 text-sm text-cyan-400">Conectado como: {user.email}</p>}
+          </div>
+          <Button onClick={handleLogout} variant="outline" className="border-slate-600 text-slate-200">
+            <LogOut className="mr-2 h-4 w-4" />
+            Cerrar Sesión
+          </Button>
         </div>
 
         <Tabs defaultValue="general" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 bg-slate-800">
+          <TabsList className="grid w-full grid-cols-5 bg-slate-800">
             <TabsTrigger value="general">
               <Settings className="mr-2 h-4 w-4" />
               General
@@ -128,6 +194,10 @@ const Admin = () => {
             <TabsTrigger value="payments">
               <DollarSign className="mr-2 h-4 w-4" />
               Pagos
+            </TabsTrigger>
+            <TabsTrigger value="social">
+              <Share2 className="mr-2 h-4 w-4" />
+              Redes
             </TabsTrigger>
           </TabsList>
 
@@ -392,6 +462,84 @@ const Admin = () => {
                 <Button onClick={handleSavePayments} className="bg-blue-600 hover:bg-blue-700">
                   <Save className="mr-2 h-4 w-4" />
                   Guardar Métodos de Pago
+                </Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Social Media */}
+          <TabsContent value="social">
+            <Card className="border-slate-700 bg-slate-800/50">
+              <CardHeader>
+                <CardTitle className="text-white">Redes Sociales</CardTitle>
+                <CardDescription>Configura los enlaces de tus redes sociales</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="facebook" className="text-slate-200">Facebook</Label>
+                    <Input
+                      id="facebook"
+                      placeholder="https://facebook.com/tupagina"
+                      value={socialMedia.facebook}
+                      onChange={(e) => setSocialMedia({...socialMedia, facebook: e.target.value})}
+                      className="border-slate-600 bg-slate-700 text-white"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="instagram" className="text-slate-200">Instagram</Label>
+                    <Input
+                      id="instagram"
+                      placeholder="https://instagram.com/tuusuario"
+                      value={socialMedia.instagram}
+                      onChange={(e) => setSocialMedia({...socialMedia, instagram: e.target.value})}
+                      className="border-slate-600 bg-slate-700 text-white"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="twitter" className="text-slate-200">Twitter / X</Label>
+                    <Input
+                      id="twitter"
+                      placeholder="https://twitter.com/tuusuario"
+                      value={socialMedia.twitter}
+                      onChange={(e) => setSocialMedia({...socialMedia, twitter: e.target.value})}
+                      className="border-slate-600 bg-slate-700 text-white"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="linkedin" className="text-slate-200">LinkedIn</Label>
+                    <Input
+                      id="linkedin"
+                      placeholder="https://linkedin.com/company/tuempresa"
+                      value={socialMedia.linkedin}
+                      onChange={(e) => setSocialMedia({...socialMedia, linkedin: e.target.value})}
+                      className="border-slate-600 bg-slate-700 text-white"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="youtube" className="text-slate-200">YouTube</Label>
+                    <Input
+                      id="youtube"
+                      placeholder="https://youtube.com/@tucanal"
+                      value={socialMedia.youtube}
+                      onChange={(e) => setSocialMedia({...socialMedia, youtube: e.target.value})}
+                      className="border-slate-600 bg-slate-700 text-white"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="tiktok" className="text-slate-200">TikTok</Label>
+                    <Input
+                      id="tiktok"
+                      placeholder="https://tiktok.com/@tuusuario"
+                      value={socialMedia.tiktok}
+                      onChange={(e) => setSocialMedia({...socialMedia, tiktok: e.target.value})}
+                      className="border-slate-600 bg-slate-700 text-white"
+                    />
+                  </div>
+                </div>
+                <Button onClick={handleSaveSocialMedia} className="bg-blue-600 hover:bg-blue-700">
+                  <Save className="mr-2 h-4 w-4" />
+                  Guardar Redes Sociales
                 </Button>
               </CardContent>
             </Card>
