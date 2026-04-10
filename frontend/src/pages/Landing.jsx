@@ -162,7 +162,7 @@ const Landing = () => {
                   Expertos en Electricidad y Tecnología
                 </CardTitle>
                 <CardDescription className="text-slate-300">
-                  Más de 10 años sirviendo a hogares y negocios en Connecticut con soluciones profesionales y confiables.
+                  Transformamos espacios con soluciones eléctricas y tecnológicas de calidad. Servicio rápido, confiable y profesional en todo Connecticut.
                 </CardDescription>
               </CardHeader>
             </Card>
