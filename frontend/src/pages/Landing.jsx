@@ -159,10 +159,10 @@ const Landing = () => {
               />
               <CardHeader>
                 <CardTitle className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-                  Marca fuerte y servicio serio
+                  Expertos en Electricidad y Tecnología
                 </CardTitle>
                 <CardDescription className="text-slate-300">
-                  Tu identidad visual ya se ve premium. Esta página está diseñada para convertir visitas en llamadas y mensajes.
+                  Más de 10 años sirviendo a hogares y negocios en Connecticut con soluciones profesionales y confiables.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -191,7 +191,7 @@ const Landing = () => {
               Nuestros Servicios
             </h3>
             <p className="mx-auto max-w-3xl text-lg text-slate-200">
-              Presentación moderna y profesional para que el cliente entienda rápido qué haces y te contacte más fácil.
+              Ofrecemos soluciones completas en electricidad, diseño web y soporte técnico para hogares y negocios en todo Connecticut.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
@@ -272,10 +272,10 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
             <h3 className="mb-3 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-5xl font-black text-transparent">
-              Lo que dirán tus clientes
+              Lo que dicen nuestros clientes
             </h3>
             <p className="text-lg text-slate-300">
-              Luego puedes reemplazar estos testimonios por reseñas reales de Google o mensajes de clientes.
+              La satisfacción de nuestros clientes es nuestro mejor respaldo. Lee lo que opinan sobre nuestro servicio.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
