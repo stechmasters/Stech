@@ -135,18 +135,57 @@ const Landing = () => {
           <div className="grid items-center gap-8 lg:grid-cols-2">
             <div className="animate-fade-in-up text-center lg:text-left">
               <h2 className="mb-6 text-5xl font-black leading-[1.1] tracking-tight text-white lg:text-7xl">
-                Soluciones profesionales de{' '}
+                {t('heroTitle')}{' '}
                 <span className="relative inline-block">
                   <span className="bg-gradient-to-r from-white via-yellow-200 to-yellow-400 bg-clip-text text-transparent">
-                    electricidad y tecnología
+                    {t('heroTitleHighlight')}
                   </span>
                   <div className="absolute -bottom-2 left-0 h-1 w-full bg-gradient-to-r from-yellow-400/0 via-yellow-400/60 to-yellow-400/0"></div>
                 </span>
               </h2>
               <p className="mb-8 text-lg leading-relaxed text-slate-100 lg:text-xl">
-                En Tech Masters Solutions ayudamos a hogares y negocios en Connecticut con reparaciones eléctricas, 
-                diseño web y soporte técnico. Servicio rápido, imagen profesional y atención confiable.
+                {t('heroDescription')}
               </p>
+              <div className="mb-6 flex flex-wrap justify-center gap-3 lg:justify-start">
+                <Button 
+                  onClick={handleCall}
+                  className="group relative overflow-hidden bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-6 font-black shadow-lg shadow-emerald-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/50"
+                >
+                  <Phone className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
+                  {t('callNow')}
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-emerald-400 to-emerald-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                </Button>
+                <Button 
+                  onClick={handleSMS}
+                  className="group relative overflow-hidden bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-6 font-black shadow-lg shadow-blue-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50"
+                >
+                  <MessageSquare className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
+                  {t('sendText')}
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                </Button>
+                <Button 
+                  onClick={handleWhatsApp}
+                  className="group relative overflow-hidden bg-gradient-to-r from-green-400 via-green-500 to-emerald-500 px-6 py-6 font-black text-white shadow-lg shadow-green-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-green-500/50"
+                >
+                  <svg className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                  WhatsApp
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-green-300 to-emerald-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                </Button>
+                <Button 
+                  onClick={handleEmail}
+                  className="group relative overflow-hidden bg-gradient-to-r from-rose-500 to-pink-600 px-6 py-6 font-black shadow-lg shadow-rose-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-rose-500/50"
+                >
+                  <Mail className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
+                  {t('email')}
+                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rose-400 to-pink-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                </Button>
+              </div>
+              <div className="animate-pulse text-lg font-extrabold text-yellow-400">
+                {t('heroNote')}
+              </div>
+            </div>
               <div className="mb-6 flex flex-wrap justify-center gap-3 lg:justify-start">
                 <Button 
                   onClick={handleCall}
@@ -184,7 +223,7 @@ const Landing = () => {
                 </Button>
               </div>
               <div className="animate-pulse text-lg font-extrabold text-yellow-400">
-                Rápido • Confiable • Profesional
+                {t('heroNote')}
               </div>
             </div>
             <Card className="group overflow-hidden border-white/10 bg-white/5 shadow-2xl backdrop-blur-lg transition-all hover:scale-[1.02] hover:border-white/20 hover:shadow-blue-500/20">
@@ -195,10 +234,10 @@ const Landing = () => {
               />
               <CardHeader>
                 <CardTitle className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-                  Expertos en Electricidad y Tecnología
+                  {t('heroCardTitle')}
                 </CardTitle>
                 <CardDescription className="text-slate-300">
-                  Más de 5 años brindando soluciones eléctricas profesionales y servicios tecnológicos a hogares y negocios en Connecticut.
+                  {t('heroCardDesc')}
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -224,10 +263,10 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
             <h3 className="mb-3 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-5xl font-black text-transparent">
-              Nuestros Servicios
+              {t('servicesTitle')}
             </h3>
             <p className="mx-auto max-w-3xl text-lg text-slate-200">
-              Soluciones completas en electricidad, diseño web y soporte técnico para satisfacer todas tus necesidades.
+              {t('servicesDesc')}
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
@@ -283,11 +322,10 @@ const Landing = () => {
 
         <div className="ultra-pay-container">
           <div className="ultra-pay-header">
-            <span className="ultra-pay-label">PAGOS SEGUROS</span>
-            <h2>Elige tu Método de Pago Preferido</h2>
+            <span className="ultra-pay-label">{t('paymentsLabel')}</span>
+            <h2>{t('paymentsTitle')}</h2>
             <p>
-              Paga de forma rápida y segura usando Zelle, Venmo o Cash App.
-              Escanea el código QR o toca el botón de pago debajo de cada método.
+              {t('paymentsDesc')}
             </p>
           </div>
 
@@ -299,7 +337,7 @@ const Landing = () => {
                 <div className="ultra-logo-box ultra-zelle-box">Z</div>
                 <div>
                   <h3>Zelle</h3>
-                  <span>Transferencia bancaria</span>
+                  <span>{t('zelleSubtitle')}</span>
                 </div>
               </div>
 
@@ -313,10 +351,10 @@ const Landing = () => {
 
               <div className="ultra-card-info">
                 <h4>Alex Morales Tacuri</h4>
-                <p>Escanea el QR con tu app bancaria para completar el pago.</p>
+                <p>{t('zelleInfo')}</p>
               </div>
 
-              <a href="#zelle-help" className="ultra-btn ultra-zelle-btn">Pagar con Zelle</a>
+              <a href="#zelle-help" className="ultra-btn ultra-zelle-btn">{t('payWithZelle')}</a>
             </article>
 
             {/* VENMO */}
@@ -326,7 +364,7 @@ const Landing = () => {
                 <div className="ultra-logo-box ultra-venmo-box">V</div>
                 <div>
                   <h3>Venmo</h3>
-                  <span>Pago móvil rápido</span>
+                  <span>{t('venmoSubtitle')}</span>
                 </div>
               </div>
 
@@ -344,7 +382,7 @@ const Landing = () => {
               </div>
 
               <a href="https://venmo.com/Alex-Morales-25574" target="_blank" rel="noopener noreferrer" className="ultra-btn ultra-venmo-btn">
-                Pagar con Venmo
+                {t('payWithVenmo')}
               </a>
             </article>
 
@@ -355,7 +393,7 @@ const Landing = () => {
                 <div className="ultra-logo-box ultra-cash-box">$</div>
                 <div>
                   <h3>Cash App</h3>
-                  <span>Transferencia móvil instantánea</span>
+                  <span>{t('cashAppSubtitle')}</span>
                 </div>
               </div>
 
@@ -373,15 +411,14 @@ const Landing = () => {
               </div>
 
               <a href="https://cash.app/$alexbladimir" target="_blank" rel="noopener noreferrer" className="ultra-btn ultra-cash-btn">
-                Pagar con Cash App
+                {t('payWithCashApp')}
               </a>
             </article>
           </div>
 
           <div className="ultra-pay-footer" id="zelle-help">
             <p>
-              <strong>Soporte de pago:</strong> Si un botón no se abre en tu teléfono,
-              simplemente escanea el código QR directamente o contáctanos para asistencia.
+              <strong>{t('paymentSupport')}</strong> {t('paymentSupportDesc')}
             </p>
           </div>
         </div>
@@ -421,11 +458,48 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <Card className="border-white/10 bg-gradient-to-br from-blue-500/10 to-yellow-400/10 p-12 text-center shadow-2xl backdrop-blur-lg">
             <h3 className="mb-4 bg-gradient-to-r from-white via-yellow-200 to-yellow-400 bg-clip-text text-5xl font-black text-transparent">
-              ¿Necesitas servicio hoy?
+              {t('ctaTitle')}
             </h3>
             <p className="mx-auto mb-8 max-w-3xl text-lg text-slate-300">
-              Llama, envía un mensaje de texto o escríbenos por WhatsApp para recibir atención rápida en Connecticut.
+              {t('ctaDesc')}
             </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Button 
+                onClick={handleCall}
+                className="group relative overflow-hidden bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-6 font-black shadow-lg shadow-emerald-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/50"
+              >
+                <Phone className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
+                {t('requestService')}
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-emerald-400 to-emerald-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              </Button>
+              <Button 
+                onClick={handleSMS}
+                className="group relative overflow-hidden bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-6 font-black shadow-lg shadow-blue-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/50"
+              >
+                <MessageSquare className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
+                {t('textMessage')}
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              </Button>
+              <Button 
+                onClick={handleWhatsApp}
+                className="group relative overflow-hidden bg-gradient-to-r from-green-400 via-green-500 to-emerald-500 px-6 py-6 font-black text-white shadow-lg shadow-green-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-green-500/50"
+              >
+                <svg className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+                WhatsApp
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-green-300 to-emerald-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              </Button>
+              <Button 
+                onClick={handleEmail}
+                className="group relative overflow-hidden bg-gradient-to-r from-rose-500 to-pink-600 px-6 py-6 font-black shadow-lg shadow-rose-500/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-rose-500/50"
+              >
+                <Mail className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
+                {t('email')}
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-rose-400 to-pink-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              </Button>
+            </div>
+          </Card>
             <div className="flex flex-wrap justify-center gap-3">
               <Button 
                 onClick={handleCall}
@@ -485,7 +559,7 @@ const Landing = () => {
             </div>
             
             <div className="text-center">
-              <p className="mb-4 text-slate-300">Síguenos en redes sociales</p>
+              <p className="mb-4 text-slate-300">{t('followUs')}</p>
               <div className="flex justify-center gap-3">
                 {Object.entries(socialMedia).map(([platform, url]) => {
                   if (!url || !socialIcons[platform]) return null;
@@ -507,8 +581,8 @@ const Landing = () => {
             </div>
             
             <div className="text-center text-slate-300 md:text-right">
-              <p className="text-lg font-bold text-white">Energía y Tecnología</p>
-              <p>para tu Hogar y Negocio</p>
+              <p className="text-lg font-bold text-white">{t('footerTagline')}</p>
+              <p>{t('footerSubtitle')}</p>
               <p className="mt-4 text-xs">© 2025 Tech Masters Solutions</p>
             </div>
           </div>
