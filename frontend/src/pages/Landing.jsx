@@ -9,6 +9,14 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Landing = () => {
   const [socialMedia, setSocialMedia] = useState({ facebook: '', instagram: '', twitter: '', linkedin: '', youtube: '', tiktok: '' });
+  const [paymentMethods, setPaymentMethods] = useState({
+    zelle: '',
+    zelle_qr: '',
+    cashapp: '',
+    cashapp_qr: '',
+    venmo: '',
+    venmo_qr: ''
+  });
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -16,6 +24,7 @@ const Landing = () => {
     window.addEventListener('scroll', handleScroll);
     
     fetchSocialMedia();
+    fetchPaymentMethods();
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -26,6 +35,15 @@ const Landing = () => {
       setSocialMedia(response.data);
     } catch (error) {
       console.error('Error fetching social media:', error);
+    }
+  };
+
+  const fetchPaymentMethods = async () => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/payments`);
+      setPaymentMethods(response.data);
+    } catch (error) {
+      console.error('Error fetching payment methods:', error);
     }
   };
 
@@ -252,24 +270,122 @@ const Landing = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
-            <h3 className="mb-3 bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-5xl font-black text-transparent">
-              Pagos fáciles
+            <h3 className="mb-3 bg-gradient-to-r from-white to-green-200 bg-clip-text text-5xl font-black text-transparent">
+              Métodos de Pago
             </h3>
-            <p className="text-lg text-slate-300">
-              Después puedes reemplazar estos enlaces por tus links reales de Zelle, Cash App y Venmo.
+            <p className="text-lg text-slate-200">
+              Escanea el código QR o copia el usuario para realizar tu pago de forma rápida y segura
             </p>
           </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            {paymentMethods.map((method) => (
-              <Button
-                key={method.id}
-                variant="outline"
-                className="min-w-[180px] cursor-not-allowed border-white/20 bg-white font-black text-black opacity-70 shadow-2xl transition-all hover:scale-105"
-                disabled={method.pending}
-              >
-                {method.name} (Pendiente)
-              </Button>
-            ))}
+          
+          <div className="grid gap-8 md:grid-cols-3">
+            {/* Zelle */}
+            <Card className="group overflow-hidden border-purple-500/30 bg-gradient-to-br from-purple-900/20 to-purple-800/10 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-purple-400/50 hover:shadow-purple-500/30">
+              <CardHeader className="pb-4 text-center">
+                <div className="mb-4 flex justify-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg">
+                    <svg className="h-10 w-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="16" fontWeight="bold">Z</text>
+                    </svg>
+                  </div>
+                </div>
+                <CardTitle className="text-2xl font-black text-purple-300">Zelle</CardTitle>
+                <CardDescription className="text-slate-300">Transferencia bancaria instantánea</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {paymentMethods.zelle_qr && (
+                  <div className="flex justify-center">
+                    <div className="overflow-hidden rounded-2xl border-4 border-purple-400/30 bg-white p-3 shadow-xl transition-transform hover:scale-105">
+                      <img 
+                        src={paymentMethods.zelle_qr} 
+                        alt="Zelle QR Code" 
+                        className="h-48 w-48 object-contain"
+                      />
+                    </div>
+                  </div>
+                )}
+                {paymentMethods.zelle && (
+                  <div className="rounded-xl border border-purple-400/30 bg-purple-900/20 p-4 text-center backdrop-blur-sm">
+                    <p className="mb-1 text-xs font-bold text-purple-300">Usuario Zelle</p>
+                    <p className="break-all text-lg font-black text-white">{paymentMethods.zelle}</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Cash App */}
+            <Card className="group overflow-hidden border-green-500/30 bg-gradient-to-br from-green-900/20 to-green-800/10 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-green-400/50 hover:shadow-green-500/30">
+              <CardHeader className="pb-4 text-center">
+                <div className="mb-4 flex justify-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-green-600 shadow-lg">
+                    <svg className="h-10 w-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="20" fontWeight="bold">$</text>
+                    </svg>
+                  </div>
+                </div>
+                <CardTitle className="text-2xl font-black text-green-300">Cash App</CardTitle>
+                <CardDescription className="text-slate-300">Pago rápido y fácil</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {paymentMethods.cashapp_qr && (
+                  <div className="flex justify-center">
+                    <div className="overflow-hidden rounded-2xl border-4 border-green-400/30 bg-white p-3 shadow-xl transition-transform hover:scale-105">
+                      <img 
+                        src={paymentMethods.cashapp_qr} 
+                        alt="Cash App QR Code" 
+                        className="h-48 w-48 object-contain"
+                      />
+                    </div>
+                  </div>
+                )}
+                {paymentMethods.cashapp && (
+                  <div className="rounded-xl border border-green-400/30 bg-green-900/20 p-4 text-center backdrop-blur-sm">
+                    <p className="mb-1 text-xs font-bold text-green-300">Cashtag</p>
+                    <p className="text-lg font-black text-white">{paymentMethods.cashapp}</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Venmo */}
+            <Card className="group overflow-hidden border-blue-500/30 bg-gradient-to-br from-blue-900/20 to-blue-800/10 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-blue-400/50 hover:shadow-blue-500/30">
+              <CardHeader className="pb-4 text-center">
+                <div className="mb-4 flex justify-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg">
+                    <svg className="h-10 w-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="16" fontWeight="bold">V</text>
+                    </svg>
+                  </div>
+                </div>
+                <CardTitle className="text-2xl font-black text-blue-300">Venmo</CardTitle>
+                <CardDescription className="text-slate-300">Pago social y simple</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {paymentMethods.venmo_qr && (
+                  <div className="flex justify-center">
+                    <div className="overflow-hidden rounded-2xl border-4 border-blue-400/30 bg-white p-3 shadow-xl transition-transform hover:scale-105">
+                      <img 
+                        src={paymentMethods.venmo_qr} 
+                        alt="Venmo QR Code" 
+                        className="h-48 w-48 object-contain"
+                      />
+                    </div>
+                  </div>
+                )}
+                {paymentMethods.venmo && (
+                  <div className="rounded-xl border border-blue-400/30 bg-blue-900/20 p-4 text-center backdrop-blur-sm">
+                    <p className="mb-1 text-xs font-bold text-blue-300">Usuario Venmo</p>
+                    <p className="text-lg font-black text-white">{paymentMethods.venmo}</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-sm text-slate-400">
+              💳 Todos los métodos de pago son seguros y verificados
+            </p>
           </div>
         </div>
       </section>

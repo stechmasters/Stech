@@ -71,13 +71,19 @@ class ReviewResponse(BaseModel):
 # Payment Models
 class PaymentMethodsUpdate(BaseModel):
     zelle: Optional[str] = None
+    zelle_qr: Optional[str] = None
     cashapp: Optional[str] = None
+    cashapp_qr: Optional[str] = None
     venmo: Optional[str] = None
+    venmo_qr: Optional[str] = None
 
 class PaymentMethodsResponse(BaseModel):
     zelle: str
+    zelle_qr: str
     cashapp: str
+    cashapp_qr: str
     venmo: str
+    venmo_qr: str
 
 # Social Media Models
 class SocialMediaUpdate(BaseModel):

@@ -431,7 +431,14 @@ async def get_payment_methods():
     """Get payment methods"""
     payments = await db.payment_methods.find_one({"_id": "main"})
     if not payments:
-        return {"zelle": "", "cashapp": "", "venmo": ""}
+        return {
+            "zelle": "ALEX MORALES TACURI",
+            "zelle_qr": "https://customer-assets.emergentagent.com/job_tech-ct/artifacts/791op84b_IMG_6766.png",
+            "cashapp": "$alexbladimir",
+            "cashapp_qr": "https://customer-assets.emergentagent.com/job_tech-ct/artifacts/10mz20h3_IMG_6767.jpeg",
+            "venmo": "@Alex-Morales-25574",
+            "venmo_qr": "https://customer-assets.emergentagent.com/job_tech-ct/artifacts/99apnirx_IMG_6768.jpeg"
+        }
     return payments
 
 @api_router.put("/payments", response_model=PaymentMethodsResponse)

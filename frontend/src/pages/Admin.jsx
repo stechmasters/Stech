@@ -426,38 +426,63 @@ const Admin = () => {
             <Card className="border-slate-700 bg-slate-800/50">
               <CardHeader>
                 <CardTitle className="text-white">Métodos de Pago</CardTitle>
-                <CardDescription>Configura los enlaces de tus plataformas de pago</CardDescription>
+                <CardDescription>Configura los enlaces y QR codes de tus plataformas de pago</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="zelle" className="text-slate-200">Zelle (Email o Teléfono)</Label>
-                  <Input
-                    id="zelle"
-                    placeholder="tu@email.com o número de teléfono"
-                    value={paymentMethods.zelle}
-                    onChange={(e) => setPaymentMethods({...paymentMethods, zelle: e.target.value})}
-                    className="border-slate-600 bg-slate-700 text-white"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="cashapp" className="text-slate-200">Cash App ($Cashtag)</Label>
-                  <Input
-                    id="cashapp"
-                    placeholder="$tucashtag"
-                    value={paymentMethods.cashapp}
-                    onChange={(e) => setPaymentMethods({...paymentMethods, cashapp: e.target.value})}
-                    className="border-slate-600 bg-slate-700 text-white"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="venmo" className="text-slate-200">Venmo (@username)</Label>
-                  <Input
-                    id="venmo"
-                    placeholder="@tuusername"
-                    value={paymentMethods.venmo}
-                    onChange={(e) => setPaymentMethods({...paymentMethods, venmo: e.target.value})}
-                    className="border-slate-600 bg-slate-700 text-white"
-                  />
+                <div className="space-y-4">
+                  <div className="rounded-lg border border-slate-600 bg-slate-700/30 p-4">
+                    <Label className="mb-2 block text-lg font-bold text-purple-400">Zelle</Label>
+                    <div className="space-y-2">
+                      <Input
+                        placeholder="Nombre o email de Zelle"
+                        value={paymentMethods.zelle}
+                        onChange={(e) => setPaymentMethods({...paymentMethods, zelle: e.target.value})}
+                        className="border-slate-600 bg-slate-700 text-white"
+                      />
+                      <Input
+                        placeholder="URL de la imagen QR de Zelle"
+                        value={paymentMethods.zelle_qr}
+                        onChange={(e) => setPaymentMethods({...paymentMethods, zelle_qr: e.target.value})}
+                        className="border-slate-600 bg-slate-700 text-white"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="rounded-lg border border-slate-600 bg-slate-700/30 p-4">
+                    <Label className="mb-2 block text-lg font-bold text-green-400">Cash App</Label>
+                    <div className="space-y-2">
+                      <Input
+                        placeholder="$cashtag"
+                        value={paymentMethods.cashapp}
+                        onChange={(e) => setPaymentMethods({...paymentMethods, cashapp: e.target.value})}
+                        className="border-slate-600 bg-slate-700 text-white"
+                      />
+                      <Input
+                        placeholder="URL de la imagen QR de Cash App"
+                        value={paymentMethods.cashapp_qr}
+                        onChange={(e) => setPaymentMethods({...paymentMethods, cashapp_qr: e.target.value})}
+                        className="border-slate-600 bg-slate-700 text-white"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="rounded-lg border border-slate-600 bg-slate-700/30 p-4">
+                    <Label className="mb-2 block text-lg font-bold text-blue-400">Venmo</Label>
+                    <div className="space-y-2">
+                      <Input
+                        placeholder="@username"
+                        value={paymentMethods.venmo}
+                        onChange={(e) => setPaymentMethods({...paymentMethods, venmo: e.target.value})}
+                        className="border-slate-600 bg-slate-700 text-white"
+                      />
+                      <Input
+                        placeholder="URL de la imagen QR de Venmo"
+                        value={paymentMethods.venmo_qr}
+                        onChange={(e) => setPaymentMethods({...paymentMethods, venmo_qr: e.target.value})}
+                        className="border-slate-600 bg-slate-700 text-white"
+                      />
+                    </div>
+                  </div>
                 </div>
                 <Button onClick={handleSavePayments} className="bg-blue-600 hover:bg-blue-700">
                   <Save className="mr-2 h-4 w-4" />
