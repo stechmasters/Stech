@@ -266,125 +266,111 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Payment Methods */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="mb-12 text-center">
-            <h3 className="mb-3 bg-gradient-to-r from-white to-green-200 bg-clip-text text-5xl font-black text-transparent">
-              Métodos de Pago
-            </h3>
-            <p className="text-lg text-slate-200">
-              Escanea el código QR o copia el usuario para realizar tu pago de forma rápida y segura
+      {/* Payment Methods - Ultra Pro Design */}
+      <section className="ultra-pay-section" id="payments">
+        <div className="ultra-pay-bg"></div>
+
+        <div className="ultra-pay-container">
+          <div className="ultra-pay-header">
+            <span className="ultra-pay-label">PAGOS SEGUROS</span>
+            <h2>Elige tu Método de Pago Preferido</h2>
+            <p>
+              Paga de forma rápida y segura usando Zelle, Venmo o Cash App.
+              Escanea el código QR o toca el botón de pago debajo de cada método.
             </p>
           </div>
-          
-          <div className="grid gap-8 md:grid-cols-3">
-            {/* Zelle */}
-            <Card className="group overflow-hidden border-purple-500/30 bg-gradient-to-br from-purple-900/20 to-purple-800/10 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-purple-400/50 hover:shadow-purple-500/30">
-              <CardHeader className="pb-4 text-center">
-                <div className="mb-4 flex justify-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg">
-                    <svg className="h-10 w-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="16" fontWeight="bold">Z</text>
-                    </svg>
-                  </div>
-                </div>
-                <CardTitle className="text-2xl font-black text-purple-300">Zelle</CardTitle>
-                <CardDescription className="text-slate-300">Transferencia bancaria instantánea</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {paymentMethods.zelle_qr && (
-                  <div className="flex justify-center">
-                    <div className="overflow-hidden rounded-2xl border-4 border-purple-400/30 bg-white p-3 shadow-xl transition-transform hover:scale-105">
-                      <img 
-                        src={paymentMethods.zelle_qr} 
-                        alt="Zelle QR Code" 
-                        className="h-48 w-48 object-contain"
-                      />
-                    </div>
-                  </div>
-                )}
-                {paymentMethods.zelle && (
-                  <div className="rounded-xl border border-purple-400/30 bg-purple-900/20 p-4 text-center backdrop-blur-sm">
-                    <p className="mb-1 text-xs font-bold text-purple-300">Usuario Zelle</p>
-                    <p className="break-all text-lg font-black text-white">{paymentMethods.zelle}</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
 
-            {/* Cash App */}
-            <Card className="group overflow-hidden border-green-500/30 bg-gradient-to-br from-green-900/20 to-green-800/10 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-green-400/50 hover:shadow-green-500/30">
-              <CardHeader className="pb-4 text-center">
-                <div className="mb-4 flex justify-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-green-600 shadow-lg">
-                    <svg className="h-10 w-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="20" fontWeight="bold">$</text>
-                    </svg>
-                  </div>
+          <div className="ultra-pay-grid">
+            {/* ZELLE */}
+            <article className="ultra-card ultra-zelle">
+              <div className="ultra-top-line"></div>
+              <div className="ultra-card-head">
+                <div className="ultra-logo-box ultra-zelle-box">Z</div>
+                <div>
+                  <h3>Zelle</h3>
+                  <span>Transferencia bancaria</span>
                 </div>
-                <CardTitle className="text-2xl font-black text-green-300">Cash App</CardTitle>
-                <CardDescription className="text-slate-300">Pago rápido y fácil</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {paymentMethods.cashapp_qr && (
-                  <div className="flex justify-center">
-                    <div className="overflow-hidden rounded-2xl border-4 border-green-400/30 bg-white p-3 shadow-xl transition-transform hover:scale-105">
-                      <img 
-                        src={paymentMethods.cashapp_qr} 
-                        alt="Cash App QR Code" 
-                        className="h-48 w-48 object-contain"
-                      />
-                    </div>
-                  </div>
-                )}
-                {paymentMethods.cashapp && (
-                  <div className="rounded-xl border border-green-400/30 bg-green-900/20 p-4 text-center backdrop-blur-sm">
-                    <p className="mb-1 text-xs font-bold text-green-300">Cashtag</p>
-                    <p className="text-lg font-black text-white">{paymentMethods.cashapp}</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+              </div>
 
-            {/* Venmo */}
-            <Card className="group overflow-hidden border-blue-500/30 bg-gradient-to-br from-blue-900/20 to-blue-800/10 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-blue-400/50 hover:shadow-blue-500/30">
-              <CardHeader className="pb-4 text-center">
-                <div className="mb-4 flex justify-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg">
-                    <svg className="h-10 w-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fontSize="16" fontWeight="bold">V</text>
-                    </svg>
-                  </div>
+              <div className="ultra-qr-wrap">
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_tech-ct/artifacts/791op84b_IMG_6766.png" 
+                  alt="Zelle QR for Alex Morales Tacuri"
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="ultra-card-info">
+                <h4>Alex Morales Tacuri</h4>
+                <p>Escanea el QR con tu app bancaria para completar el pago.</p>
+              </div>
+
+              <a href="#zelle-help" className="ultra-btn ultra-zelle-btn">Pagar con Zelle</a>
+            </article>
+
+            {/* VENMO */}
+            <article className="ultra-card ultra-venmo">
+              <div className="ultra-top-line"></div>
+              <div className="ultra-card-head">
+                <div className="ultra-logo-box ultra-venmo-box">V</div>
+                <div>
+                  <h3>Venmo</h3>
+                  <span>Pago móvil rápido</span>
                 </div>
-                <CardTitle className="text-2xl font-black text-blue-300">Venmo</CardTitle>
-                <CardDescription className="text-slate-300">Pago social y simple</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {paymentMethods.venmo_qr && (
-                  <div className="flex justify-center">
-                    <div className="overflow-hidden rounded-2xl border-4 border-blue-400/30 bg-white p-3 shadow-xl transition-transform hover:scale-105">
-                      <img 
-                        src={paymentMethods.venmo_qr} 
-                        alt="Venmo QR Code" 
-                        className="h-48 w-48 object-contain"
-                      />
-                    </div>
-                  </div>
-                )}
-                {paymentMethods.venmo && (
-                  <div className="rounded-xl border border-blue-400/30 bg-blue-900/20 p-4 text-center backdrop-blur-sm">
-                    <p className="mb-1 text-xs font-bold text-blue-300">Usuario Venmo</p>
-                    <p className="text-lg font-black text-white">{paymentMethods.venmo}</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+              </div>
+
+              <div className="ultra-qr-wrap">
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_tech-ct/artifacts/99apnirx_IMG_6768.jpeg" 
+                  alt="Venmo QR for Alex Morales"
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="ultra-card-info">
+                <h4>Alex Morales</h4>
+                <p>@Alex-Morales-25574</p>
+              </div>
+
+              <a href="https://venmo.com/Alex-Morales-25574" target="_blank" rel="noopener noreferrer" className="ultra-btn ultra-venmo-btn">
+                Pagar con Venmo
+              </a>
+            </article>
+
+            {/* CASH APP */}
+            <article className="ultra-card ultra-cash">
+              <div className="ultra-top-line"></div>
+              <div className="ultra-card-head">
+                <div className="ultra-logo-box ultra-cash-box">$</div>
+                <div>
+                  <h3>Cash App</h3>
+                  <span>Transferencia móvil instantánea</span>
+                </div>
+              </div>
+
+              <div className="ultra-qr-wrap">
+                <img 
+                  src="https://customer-assets.emergentagent.com/job_tech-ct/artifacts/10mz20h3_IMG_6767.jpeg" 
+                  alt="Cash App QR for Alex Morales Tacuri"
+                  loading="lazy"
+                />
+              </div>
+
+              <div className="ultra-card-info">
+                <h4>Alex Morales Tacuri</h4>
+                <p>$alexbladimir</p>
+              </div>
+
+              <a href="https://cash.app/$alexbladimir" target="_blank" rel="noopener noreferrer" className="ultra-btn ultra-cash-btn">
+                Pagar con Cash App
+              </a>
+            </article>
           </div>
 
-          <div className="mt-12 text-center">
-            <p className="text-sm text-slate-400">
-              💳 Todos los métodos de pago son seguros y verificados
+          <div className="ultra-pay-footer" id="zelle-help">
+            <p>
+              <strong>Soporte de pago:</strong> Si un botón no se abre en tu teléfono,
+              simplemente escanea el código QR directamente o contáctanos para asistencia.
             </p>
           </div>
         </div>
