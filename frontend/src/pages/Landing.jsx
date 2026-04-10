@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageSquare, Mail, Facebook, Instagram, Twitter, Linkedin, Youtube } from 'lucide-react';
+import { Phone, MessageSquare, Mail, Facebook, Instagram, Twitter, Linkedin, Youtube, Globe } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { contactInfo, services, benefits, reviews, paymentMethods, images } from '../utils/mockData';
+import { contactInfo, images } from '../utils/mockData';
+import { useLanguage } from '../context/LanguageContext';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Landing = () => {
+  const { language, toggleLanguage, t } = useLanguage();
   const [socialMedia, setSocialMedia] = useState({ facebook: '', instagram: '', twitter: '', linkedin: '', youtube: '', tiktok: '' });
-  const [paymentMethods, setPaymentMethods] = useState({
-    zelle: '',
-    zelle_qr: '',
-    cashapp: '',
-    cashapp_qr: '',
-    venmo: '',
-    venmo_qr: ''
-  });
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -24,7 +18,6 @@ const Landing = () => {
     window.addEventListener('scroll', handleScroll);
     
     fetchSocialMedia();
-    fetchPaymentMethods();
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -35,15 +28,6 @@ const Landing = () => {
       setSocialMedia(response.data);
     } catch (error) {
       console.error('Error fetching social media:', error);
-    }
-  };
-
-  const fetchPaymentMethods = async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/api/payments`);
-      setPaymentMethods(response.data);
-    } catch (error) {
-      console.error('Error fetching payment methods:', error);
     }
   };
 
@@ -70,6 +54,26 @@ const Landing = () => {
     linkedin: { icon: Linkedin, color: 'hover:bg-blue-700' },
     youtube: { icon: Youtube, color: 'hover:bg-red-600' }
   };
+
+  // Dynamic data based on language
+  const services = [
+    { id: 1, icon: '⚡', title: t('service1Title'), description: t('service1Desc') },
+    { id: 2, icon: '💻', title: t('service2Title'), description: t('service2Desc') },
+    { id: 3, icon: '🛠', title: t('service3Title'), description: t('service3Desc') }
+  ];
+
+  const benefits = [
+    { id: 1, icon: '⚡', title: t('benefit1Title'), description: t('benefit1Desc') },
+    { id: 2, icon: '🏠', title: t('benefit2Title'), description: t('benefit2Desc') },
+    { id: 3, icon: '🔧', title: t('benefit3Title'), description: t('benefit3Desc') },
+    { id: 4, icon: '💯', title: t('benefit4Title'), description: t('benefit4Desc') }
+  ];
+
+  const reviews = [
+    { id: 1, rating: 5, text: t('review1'), author: t('review1Author') },
+    { id: 2, rating: 5, text: t('review2'), author: t('review2Author') },
+    { id: 3, rating: 5, text: t('review3'), author: t('review3Author') }
+  ];
 
   return (
     <div className="min-h-screen overflow-hidden">
@@ -100,19 +104,26 @@ const Landing = () => {
                 <h1 className="bg-gradient-to-r from-white via-blue-100 to-yellow-200 bg-clip-text text-lg font-black leading-tight text-transparent">
                   Tech Masters Solutions
                 </h1>
-                <p className="text-sm font-bold text-cyan-300">Energía y Tecnología para tu Hogar y Negocio</p>
+                <p className="text-sm font-bold text-cyan-300">{t('tagline')}</p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <div className="group rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-bold text-white backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/20">
-                📍 {contactInfo.location}
+                📍 {t('location')}
               </div>
               <div className="group rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-bold text-white backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/20">
                 📞 {contactInfo.phoneFormatted}
               </div>
               <div className="group rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-bold text-white backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/20">
-                ⚡ Same Day Service
+                ⚡ {t('sameDayService')}
               </div>
+              <button
+                onClick={toggleLanguage}
+                className="group flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm font-bold text-white backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/20"
+              >
+                <Globe className="h-4 w-4" />
+                {language === 'es' ? 'EN' : 'ES'}
+              </button>
             </div>
           </div>
         </div>
