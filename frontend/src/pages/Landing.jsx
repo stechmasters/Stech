@@ -184,10 +184,10 @@ const Landing = () => {
               />
               <CardHeader>
                 <CardTitle className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-                  Marca fuerte y servicio serio
+                  Expertos en Electricidad y Tecnología
                 </CardTitle>
                 <CardDescription className="text-slate-300">
-                  Tu identidad visual ya se ve premium. Esta página está diseñada para convertir visitas en llamadas y mensajes.
+                  Más de 5 años brindando soluciones eléctricas profesionales y servicios tecnológicos a hogares y negocios en Connecticut.
                 </CardDescription>
               </CardHeader>
             </Card>
@@ -216,7 +216,7 @@ const Landing = () => {
               Nuestros Servicios
             </h3>
             <p className="mx-auto max-w-3xl text-lg text-slate-200">
-              Presentación moderna y profesional para que el cliente entienda rápido qué haces y te contacte más fácil.
+              Soluciones completas en electricidad, diseño web y soporte técnico para satisfacer todas tus necesidades.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
@@ -254,7 +254,7 @@ const Landing = () => {
               {benefits.map((benefit, index) => (
                 <Card 
                   key={benefit.id} 
-                  className="group border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-lg transition-all hover:translate-x-2 hover:border-white/20 hover:shadow-blue-500/20"
+                  className="group border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-lg transition-all hover:translate-x-2 hover:border-white/20 hover:shadow-blue-400/20"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <strong className="mb-2 block text-lg">{benefit.icon} {benefit.title}</strong>
@@ -381,10 +381,10 @@ const Landing = () => {
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
             <h3 className="mb-3 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-5xl font-black text-transparent">
-              Lo que dirán tus clientes
+              Testimonios de Clientes
             </h3>
             <p className="text-lg text-slate-300">
-              Luego puedes reemplazar estos testimonios por reseñas reales de Google o mensajes de clientes.
+              Lee lo que nuestros clientes satisfechos tienen que decir sobre nuestro trabajo.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">

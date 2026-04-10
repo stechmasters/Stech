@@ -34,26 +34,26 @@ export const benefits = [
   {
     id: 1,
     icon: '⚡',
-    title: 'Servicio rápido',
-    description: 'Ideal para clientes que necesitan atención inmediata y quieren hablar contigo en un solo clic.'
+    title: 'Servicio de Emergencia 24/7',
+    description: 'Atendemos emergencias eléctricas a cualquier hora. Llámanos y estaremos en tu hogar o negocio el mismo día.'
   },
   {
     id: 2,
     icon: '🏠',
-    title: 'Hogar y negocio',
-    description: 'Tu marca comunica que puedes ayudar tanto a clientes residenciales como comerciales en Connecticut.'
+    title: 'Residencial y Comercial',
+    description: 'Servimos tanto a propiedades residenciales como comerciales en todo Connecticut con la misma calidad profesional.'
   },
   {
     id: 3,
-    icon: '🤖',
-    title: 'Imagen moderna',
-    description: 'La mascota y el branding transmiten tecnología, energía, innovación y una imagen memorable.'
+    icon: '🔧',
+    title: 'Técnicos Certificados',
+    description: 'Nuestros electricistas están completamente licenciados, asegurados y capacitados en las últimas tecnologías.'
   },
   {
     id: 4,
-    icon: '📈',
-    title: 'Página pensada para vender',
-    description: 'La estructura usa botones directos, prueba visual y mensajes claros para aumentar conversiones.'
+    icon: '💯',
+    title: 'Satisfacción Garantizada',
+    description: 'Trabajo de calidad respaldado por garantía. Tu satisfacción es nuestra prioridad número uno.'
   }
 ];
 
