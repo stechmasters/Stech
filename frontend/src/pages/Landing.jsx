@@ -319,7 +319,7 @@ const Landing = () => {
               </div>
 
               <div className="ultra-qr-wrap">
-                <img src="https://customer-assets.emergentagent.com/job_tech-ct/artifacts/10mz20h3_IMG_6767.jpeg" alt="Venmo QR - Tech Masters Solutions" />
+                <img src="https://customer-assets.emergentagent.com/job_tech-ct/artifacts/99apnirx_IMG_6768.jpeg" alt="Venmo QR - Tech Masters Solutions" />
               </div>
 
               <div className="ultra-card-info">
@@ -342,7 +342,7 @@ const Landing = () => {
               </div>
 
               <div className="ultra-qr-wrap">
-                <img src="https://customer-assets.emergentagent.com/job_tech-ct/artifacts/99apnirx_IMG_6768.jpeg" alt="Cash App QR - Tech Masters Solutions" />
+                <img src="https://customer-assets.emergentagent.com/job_tech-ct/artifacts/10mz20h3_IMG_6767.jpeg" alt="Cash App QR - Tech Masters Solutions" />
               </div>
 
               <div className="ultra-card-info">
