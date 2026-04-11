@@ -327,7 +327,14 @@ const Landing = () => {
                 <p>Escanea para pagar instantáneamente</p>
               </div>
 
-              <a href="#venmo-help" onClick={(e) => { e.preventDefault(); window.open('venmo://paycharge?txn=pay&recipients=Alex-Morales-25574', '_blank'); }} className="ultra-btn ultra-venmo-btn">Pagar con Venmo</a>
+              <a 
+                href="https://venmo.com/u/Alex-Morales-25574" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="ultra-btn ultra-venmo-btn"
+              >
+                Pagar con Venmo
+              </a>
             </article>
 
             {/* CASH APP */}
