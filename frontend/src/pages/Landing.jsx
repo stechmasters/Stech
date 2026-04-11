@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageSquare, Mail, Facebook, Instagram, Twitter, Linkedin, Youtube, Globe } from 'lucide-react';
+import { Phone, MessageSquare, Mail, Facebook, Instagram, Youtube } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { contactInfo, services, benefits, reviews, paymentMethods, images } from '../utils/mockData';
@@ -43,14 +43,6 @@ const Landing = () => {
 
   const handleEmail = () => {
     window.location.href = `mailto:${contactInfo.email}?subject=${encodeURIComponent('Solicitud de Servicio')}&body=${encodeURIComponent('Hola, necesito información sobre sus servicios.')}`;
-  };
-
-  const socialIcons = {
-    facebook: { icon: Facebook, color: 'hover:bg-blue-600' },
-    instagram: { icon: Instagram, color: 'hover:bg-pink-600' },
-    twitter: { icon: Twitter, color: 'hover:bg-sky-500' },
-    linkedin: { icon: Linkedin, color: 'hover:bg-blue-700' },
-    youtube: { icon: Youtube, color: 'hover:bg-red-600' }
   };
 
   return (
@@ -444,26 +436,6 @@ const Landing = () => {
               </a>
               
               <a 
-                href={socialMedia.twitter || '#'} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 shadow-xl shadow-sky-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-sky-500/50"
-              >
-                <Twitter className="relative z-10 h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-br from-sky-300 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-              </a>
-              
-              <a 
-                href={socialMedia.linkedin || '#'} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 shadow-xl shadow-blue-600/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-blue-600/50"
-              >
-                <Linkedin className="relative z-10 h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-              </a>
-              
-              <a 
                 href={socialMedia.youtube || '#'} 
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -477,10 +449,12 @@ const Landing = () => {
                 href={socialMedia.tiktok || '#'} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 shadow-xl shadow-slate-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-slate-500/50"
+                className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-black shadow-xl shadow-slate-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-slate-500/50"
               >
-                <Globe className="relative z-10 h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                <svg className="relative z-10 h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-black opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               </a>
             </div>
           </div>
