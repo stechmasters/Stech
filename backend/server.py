@@ -404,14 +404,14 @@ async def get_reviews():
     return [{"id": str(r["_id"]), **{k: v for k, v in r.items() if k != "_id"}} for r in reviews]
 
 @api_router.post("/reviews", response_model=ReviewResponse)
-async def create_review(review: ReviewCreate, request: Request):
-    """Create a new review (protected)"""
-    await get_current_user(request, db)  # Check auth
-    
+async def create_review(review: ReviewCreate):
+    """Create a new review (public endpoint for customers)"""
     review_doc = review.dict()
+    review_doc["created_at"] = datetime.now(timezone.utc)
+    review_doc["approved"] = True  # Auto-approve reviews
     result = await db.reviews.insert_one(review_doc)
     
-    return {"id": str(result.inserted_id), **review_doc}
+    return {"id": str(result.inserted_id), **{k: v for k, v in review_doc.items() if k not in ["created_at", "approved"]}}
 
 @api_router.delete("/reviews/{review_id}")
 async def delete_review(review_id: str, request: Request):

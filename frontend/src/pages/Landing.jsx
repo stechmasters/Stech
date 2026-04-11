@@ -10,12 +10,17 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const Landing = () => {
   const [socialMedia, setSocialMedia] = useState({ facebook: '', instagram: '', twitter: '', linkedin: '', youtube: '', tiktok: '' });
   const [scrollY, setScrollY] = useState(0);
+  const [customerReviews, setCustomerReviews] = useState([]);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [reviewForm, setReviewForm] = useState({ rating: 5, text: '', author: '' });
+  const [submitMessage, setSubmitMessage] = useState('');
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
     
     fetchSocialMedia();
+    fetchReviews();
     
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -26,6 +31,30 @@ const Landing = () => {
       setSocialMedia(response.data);
     } catch (error) {
       console.error('Error fetching social media:', error);
+    }
+  };
+
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/reviews`);
+      setCustomerReviews(response.data);
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  };
+
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${BACKEND_URL}/api/reviews`, reviewForm);
+      setSubmitMessage('¡Gracias por tu reseña! Se ha publicado exitosamente.');
+      setReviewForm({ rating: 5, text: '', author: '' });
+      setShowReviewForm(false);
+      fetchReviews(); // Refresh reviews
+      setTimeout(() => setSubmitMessage(''), 5000);
+    } catch (error) {
+      setSubmitMessage('Error al enviar la reseña. Intenta de nuevo.');
+      console.error('Error submitting review:', error);
     }
   };
 
@@ -345,20 +374,107 @@ const Landing = () => {
               La satisfacción de nuestros clientes es nuestro mejor respaldo. Lee lo que opinan sobre nuestro servicio.
             </p>
           </div>
+
+          {submitMessage && (
+            <div className="mx-auto mb-6 max-w-2xl rounded-2xl bg-green-500/20 border border-green-500/50 p-4 text-center text-green-300">
+              {submitMessage}
+            </div>
+          )}
+
+          <div className="mb-8 text-center">
+            <Button
+              onClick={() => setShowReviewForm(!showReviewForm)}
+              className="group bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 px-8 py-6 font-extrabold text-black shadow-2xl shadow-yellow-500/40 transition-all duration-300 hover:scale-105"
+            >
+              ⭐ {showReviewForm ? 'Cerrar' : 'Dejar una Reseña'}
+            </Button>
+          </div>
+
+          {showReviewForm && (
+            <Card className="mx-auto mb-12 max-w-2xl border-white/20 bg-gradient-to-br from-slate-800/90 to-slate-900/90 p-8 shadow-2xl backdrop-blur-lg">
+              <form onSubmit={handleSubmitReview}>
+                <div className="mb-6">
+                  <label className="mb-2 block text-lg font-bold text-white">Tu Nombre</label>
+                  <input
+                    type="text"
+                    required
+                    value={reviewForm.author}
+                    onChange={(e) => setReviewForm({...reviewForm, author: e.target.value})}
+                    className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-400 backdrop-blur-sm focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    placeholder="Ej: Juan Pérez"
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <label className="mb-2 block text-lg font-bold text-white">Calificación</label>
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setReviewForm({...reviewForm, rating: star})}
+                        className={`text-4xl transition-all ${reviewForm.rating >= star ? 'text-yellow-400 scale-110' : 'text-slate-600'}`}
+                      >
+                        ★
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <label className="mb-2 block text-lg font-bold text-white">Tu Reseña</label>
+                  <textarea
+                    required
+                    value={reviewForm.text}
+                    onChange={(e) => setReviewForm({...reviewForm, text: e.target.value})}
+                    rows="4"
+                    className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-400 backdrop-blur-sm focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    placeholder="Cuéntanos sobre tu experiencia con nuestro servicio..."
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-green-500 to-emerald-600 py-6 text-lg font-black shadow-2xl shadow-green-500/40 transition-all hover:scale-105"
+                >
+                  Enviar Reseña
+                </Button>
+              </form>
+            </Card>
+          )}
+
           <div className="grid gap-6 md:grid-cols-3">
-            {reviews.map((review, index) => (
-              <Card 
-                key={review.id} 
-                className="group border-white/10 bg-white/5 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-white/20 hover:shadow-yellow-500/20"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <CardHeader>
-                  <div className="mb-3 text-2xl tracking-widest text-yellow-400">★★★★★</div>
-                  <CardDescription className="text-base text-slate-300">{review.text}</CardDescription>
-                  <div className="mt-4 font-extrabold text-cyan-400">{review.author}</div>
-                </CardHeader>
-              </Card>
-            ))}
+            {customerReviews.length > 0 ? (
+              customerReviews.map((review, index) => (
+                <Card 
+                  key={review.id} 
+                  className="group border-white/10 bg-white/5 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-white/20 hover:shadow-yellow-500/20"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardHeader>
+                    <div className="mb-3 text-2xl tracking-widest text-yellow-400">
+                      {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                    </div>
+                    <CardDescription className="text-base text-slate-300">{review.text}</CardDescription>
+                    <div className="mt-4 font-extrabold text-cyan-400">{review.author}</div>
+                  </CardHeader>
+                </Card>
+              ))
+            ) : (
+              reviews.map((review, index) => (
+                <Card 
+                  key={review.id} 
+                  className="group border-white/10 bg-white/5 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-white/20 hover:shadow-yellow-500/20"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <CardHeader>
+                    <div className="mb-3 text-2xl tracking-widest text-yellow-400">★★★★★</div>
+                    <CardDescription className="text-base text-slate-300">{review.text}</CardDescription>
+                    <div className="mt-4 font-extrabold text-cyan-400">{review.author}</div>
+                  </CardHeader>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </section>
