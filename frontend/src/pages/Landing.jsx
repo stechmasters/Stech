@@ -417,7 +417,75 @@ const Landing = () => {
       {/* Footer */}
       <footer className="border-t border-white/10 bg-slate-900/80 py-12 backdrop-blur-lg">
         <div className="container mx-auto px-4">
-          <div className="grid gap-8 md:grid-cols-3">
+          {/* Social Media Section */}
+          <div className="mb-12 text-center">
+            <h3 className="mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-3xl font-black text-transparent">
+              Síguenos en Redes Sociales
+            </h3>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <a 
+                href={socialMedia.facebook || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 shadow-xl shadow-blue-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-blue-500/50"
+              >
+                <Facebook className="relative z-10 h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              </a>
+              
+              <a 
+                href={socialMedia.instagram || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-pink-500 via-rose-500 to-purple-600 shadow-xl shadow-pink-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-pink-500/50"
+              >
+                <Instagram className="relative z-10 h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-br from-pink-400 via-rose-400 to-purple-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              </a>
+              
+              <a 
+                href={socialMedia.twitter || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 shadow-xl shadow-sky-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-sky-500/50"
+              >
+                <Twitter className="relative z-10 h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-br from-sky-300 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              </a>
+              
+              <a 
+                href={socialMedia.linkedin || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 shadow-xl shadow-blue-600/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-blue-600/50"
+              >
+                <Linkedin className="relative z-10 h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              </a>
+              
+              <a 
+                href={socialMedia.youtube || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-red-600 to-red-700 shadow-xl shadow-red-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-red-500/50"
+              >
+                <Youtube className="relative z-10 h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-red-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              </a>
+              
+              <a 
+                href={socialMedia.tiktok || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 shadow-xl shadow-slate-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-slate-500/50"
+              >
+                <Globe className="relative z-10 h-7 w-7 text-white transition-transform duration-300 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-800 to-slate-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+              </a>
+            </div>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2">
             <div className="flex items-center gap-4">
               <img 
                 src={images.logo}
@@ -432,42 +500,9 @@ const Landing = () => {
               </div>
             </div>
             
-            <div className="text-center">
-              <p className="mb-6 text-lg font-bold text-white">Síguenos en Redes Sociales</p>
-              <div className="flex justify-center gap-4">
-                {Object.entries(socialMedia).map(([platform, url]) => {
-                  if (!url || !socialIcons[platform]) return null;
-                  const IconComponent = socialIcons[platform].icon;
-                  return (
-                    <a
-                      key={platform}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-white/10 to-white/5 shadow-xl shadow-white/10 transition-all duration-300 hover:scale-110 hover:shadow-2xl"
-                      style={{
-                        background: platform === 'facebook' ? 'linear-gradient(135deg, #1877f2, #0a5bc4)' :
-                                   platform === 'instagram' ? 'linear-gradient(135deg, #f56040, #c13584, #833ab4)' :
-                                   platform === 'twitter' ? 'linear-gradient(135deg, #1da1f2, #0c7abf)' :
-                                   platform === 'linkedin' ? 'linear-gradient(135deg, #0077b5, #004d7a)' :
-                                   platform === 'youtube' ? 'linear-gradient(135deg, #ff0000, #cc0000)' :
-                                   'linear-gradient(135deg, #333, #000)'
-                      }}
-                    >
-                      <IconComponent className="relative z-10 h-6 w-6 text-white transition-transform duration-300 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-            
             <div className="text-center text-slate-300 md:text-right">
               <p className="text-lg font-bold text-white">Energía y Tecnología</p>
               <p>para tu Hogar y Negocio</p>
-              <p className="mt-4 text-sm text-slate-400">Lunes - Sábado: 8am - 8pm</p>
-              <p className="text-sm text-slate-400">Domingo: 10am - 6pm</p>
-              <p className="mt-2 font-bold text-green-400">⚡ Emergencias 24/7</p>
               <p className="mt-4 text-xs">© 2025 Tech Masters Solutions</p>
             </div>
           </div>
