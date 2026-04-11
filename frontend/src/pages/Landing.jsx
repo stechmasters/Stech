@@ -327,7 +327,7 @@ const Landing = () => {
                 <p>Escanea para pagar instantáneamente</p>
               </div>
 
-              <a href="#venmo-help" className="ultra-btn ultra-venmo-btn">Pagar con Venmo</a>
+              <a href="#venmo-help" onClick={(e) => { e.preventDefault(); window.open('venmo://paycharge?txn=pay&recipients=Alex-Morales-25574', '_blank'); }} className="ultra-btn ultra-venmo-btn">Pagar con Venmo</a>
             </article>
 
             {/* CASH APP */}
@@ -350,7 +350,7 @@ const Landing = () => {
                 <p>Escanea para pagar al instante</p>
               </div>
 
-              <a href="#cashapp-help" className="ultra-btn ultra-cash-btn">Pagar con Cash App</a>
+              <a href="#cashapp-help" onClick={(e) => { e.preventDefault(); window.open('https://cash.app/$alexbladimir', '_blank'); }} className="ultra-btn ultra-cash-btn">Pagar con Cash App</a>
             </article>
           </div>
 
