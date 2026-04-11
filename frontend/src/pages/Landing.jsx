@@ -241,28 +241,96 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Payment Methods */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="mb-12 text-center">
-            <h3 className="mb-3 bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-5xl font-black text-transparent">
-              Pagos fáciles
-            </h3>
-            <p className="text-lg text-slate-300">
-              Después puedes reemplazar estos enlaces por tus links reales de Zelle, Cash App y Venmo.
+      {/* Ultra Pro Payment Section */}
+      <section className="ultra-pay-section" id="payments">
+        <div className="ultra-pay-bg"></div>
+
+        <div className="ultra-pay-container">
+          <div className="ultra-pay-header">
+            <span className="ultra-pay-label">PAGOS SEGUROS</span>
+            <h2>Elige Tu Método de Pago Preferido</h2>
+            <p>
+              Paga rápido y seguro usando Zelle, Venmo o Cash App.
+              Escanea el código QR o toca el botón de pago debajo de cada método.
             </p>
           </div>
-          <div className="flex flex-wrap justify-center gap-4">
-            {paymentMethods.map((method) => (
-              <Button
-                key={method.id}
-                variant="outline"
-                className="min-w-[180px] cursor-not-allowed border-white/20 bg-white font-black text-black opacity-70 shadow-2xl transition-all hover:scale-105"
-                disabled={method.pending}
-              >
-                {method.name} (Pendiente)
-              </Button>
-            ))}
+
+          <div className="ultra-pay-grid">
+            {/* ZELLE */}
+            <article className="ultra-card ultra-zelle">
+              <div className="ultra-top-line"></div>
+              <div className="ultra-card-head">
+                <div className="ultra-logo-box ultra-zelle-box">Z</div>
+                <div>
+                  <h3>Zelle</h3>
+                  <span>Transferencia bancaria</span>
+                </div>
+              </div>
+
+              <div className="ultra-qr-wrap">
+                <img src="https://customer-assets.emergentagent.com/job_tech-ct/artifacts/791op84b_IMG_6766.png" alt="Zelle QR - Tech Masters Solutions" />
+              </div>
+
+              <div className="ultra-card-info">
+                <h4>Tech Masters Solutions</h4>
+                <p>Escanea el QR con tu app bancaria para completar el pago.</p>
+              </div>
+
+              <a href="#zelle-help" className="ultra-btn ultra-zelle-btn">Pagar con Zelle</a>
+            </article>
+
+            {/* VENMO */}
+            <article className="ultra-card ultra-venmo">
+              <div className="ultra-top-line"></div>
+              <div className="ultra-card-head">
+                <div className="ultra-logo-box ultra-venmo-box">V</div>
+                <div>
+                  <h3>Venmo</h3>
+                  <span>Pago móvil rápido</span>
+                </div>
+              </div>
+
+              <div className="ultra-qr-wrap">
+                <img src="https://customer-assets.emergentagent.com/job_tech-ct/artifacts/10mz20h3_IMG_6767.jpeg" alt="Venmo QR - Tech Masters Solutions" />
+              </div>
+
+              <div className="ultra-card-info">
+                <h4>Tech Masters Solutions</h4>
+                <p>Escanea para pagar instantáneamente</p>
+              </div>
+
+              <a href="#venmo-help" className="ultra-btn ultra-venmo-btn">Pagar con Venmo</a>
+            </article>
+
+            {/* CASH APP */}
+            <article className="ultra-card ultra-cash">
+              <div className="ultra-top-line"></div>
+              <div className="ultra-card-head">
+                <div className="ultra-logo-box ultra-cash-box">$</div>
+                <div>
+                  <h3>Cash App</h3>
+                  <span>Transferencia móvil instantánea</span>
+                </div>
+              </div>
+
+              <div className="ultra-qr-wrap">
+                <img src="https://customer-assets.emergentagent.com/job_tech-ct/artifacts/99apnirx_IMG_6768.jpeg" alt="Cash App QR - Tech Masters Solutions" />
+              </div>
+
+              <div className="ultra-card-info">
+                <h4>Tech Masters Solutions</h4>
+                <p>Escanea para pagar al instante</p>
+              </div>
+
+              <a href="#cashapp-help" className="ultra-btn ultra-cash-btn">Pagar con Cash App</a>
+            </article>
+          </div>
+
+          <div className="ultra-pay-footer" id="zelle-help">
+            <p>
+              <strong>Soporte de pago:</strong> Si un botón no se abre en tu teléfono,
+              simplemente escanea el código QR directamente o contáctanos para asistencia.
+            </p>
           </div>
         </div>
       </section>
