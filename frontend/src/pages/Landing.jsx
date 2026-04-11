@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageSquare, Mail, Facebook, Instagram, Twitter, Linkedin, Youtube } from 'lucide-react';
+import { Phone, MessageSquare, Mail, Facebook, Instagram, Twitter, Linkedin, Youtube, Globe } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { contactInfo, services, benefits, reviews, paymentMethods, images } from '../utils/mockData';
