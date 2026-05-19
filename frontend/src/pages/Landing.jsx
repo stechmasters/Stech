@@ -363,7 +363,7 @@ const Landing = () => {
                 <p>Escanea para pagar al instante</p>
               </div>
 
-              <a href="#cashapp-help" onClick={(e) => { e.preventDefault(); window.open('https://cash.app/$alexbladimir', '_blank'); }} className="ultra-btn ultra-cash-btn">Pagar con Cash App</a>
+              <a href="https://cash.app/$alexbladimir" target="_blank" rel="noopener noreferrer" className="ultra-btn ultra-cash-btn">Pagar con Cash App</a>
             </article>
           </div>
 
