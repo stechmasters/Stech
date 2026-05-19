@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -32,11 +32,7 @@ const Admin = () => {
   const [newService, setNewService] = useState({ icon: '', title: '', description: '' });
   const [newReview, setNewReview] = useState({ rating: 5, text: '', author: '' });
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const [settingsRes, servicesRes, reviewsRes, paymentsRes, socialRes] = await Promise.all([
         axios.get(`${BACKEND_URL}/api/settings`, { withCredentials: true }),
@@ -53,11 +49,17 @@ const Admin = () => {
       setSocialMedia(socialRes.data);
     } catch (error) {
       toast.error('Error al cargar datos');
-      console.error(error);
+      if (process.env.NODE_ENV === 'development') {
+        console.error(error);
+      }
     } finally {
       setLoading(false);
     }
-  };
+  }, [BACKEND_URL]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleLogout = async () => {
     await logout();

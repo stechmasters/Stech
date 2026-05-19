@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext(null);
@@ -19,11 +19,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
-  const checkAuth = async () => {
+  const checkAuth = useCallback(async () => {
     try {
       const response = await axios.get(`${BACKEND_URL}/api/auth/me`, {
         withCredentials: true
@@ -34,9 +30,13 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const login = async (email, password) => {
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  const login = useCallback(async (email, password) => {
     try {
       const response = await axios.post(
         `${BACKEND_URL}/api/auth/login`,
@@ -49,9 +49,9 @@ export const AuthProvider = ({ children }) => {
       const errorMsg = formatApiErrorDetail(error.response?.data?.detail) || error.message;
       return { success: false, error: errorMsg };
     }
-  };
+  }, []);
 
-  const register = async (email, password, name) => {
+  const register = useCallback(async (email, password, name) => {
     try {
       const response = await axios.post(
         `${BACKEND_URL}/api/auth/register`,
@@ -64,20 +64,31 @@ export const AuthProvider = ({ children }) => {
       const errorMsg = formatApiErrorDetail(error.response?.data?.detail) || error.message;
       return { success: false, error: errorMsg };
     }
-  };
+  }, []);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     try {
       await axios.post(`${BACKEND_URL}/api/auth/logout`, {}, { withCredentials: true });
       setUser(false);
     } catch (error) {
-      console.error('Logout error:', error);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Logout error:', error);
+      }
       setUser(false);
     }
-  };
+  }, []);
+
+  const value = useMemo(() => ({
+    user,
+    loading,
+    login,
+    register,
+    logout,
+    checkAuth
+  }), [user, loading, login, register, logout, checkAuth]);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, checkAuth }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );

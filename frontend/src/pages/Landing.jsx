@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Phone, MessageSquare, Mail, Facebook, Instagram, Youtube } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
@@ -15,6 +15,28 @@ const Landing = () => {
   const [reviewForm, setReviewForm] = useState({ rating: 5, text: '', author: '' });
   const [submitMessage, setSubmitMessage] = useState('');
 
+  const fetchSocialMedia = useCallback(async () => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/social-media`);
+      setSocialMedia(response.data);
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error fetching social media:', error);
+      }
+    }
+  }, []);
+
+  const fetchReviews = useCallback(async () => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/reviews`);
+      setCustomerReviews(response.data);
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error fetching reviews:', error);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
@@ -23,25 +45,7 @@ const Landing = () => {
     fetchReviews();
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const fetchSocialMedia = async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/api/social-media`);
-      setSocialMedia(response.data);
-    } catch (error) {
-      console.error('Error fetching social media:', error);
-    }
-  };
-
-  const fetchReviews = async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/api/reviews`);
-      setCustomerReviews(response.data);
-    } catch (error) {
-      console.error('Error fetching reviews:', error);
-    }
-  };
+  }, [fetchSocialMedia, fetchReviews]);
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
@@ -54,7 +58,9 @@ const Landing = () => {
       setTimeout(() => setSubmitMessage(''), 5000);
     } catch (error) {
       setSubmitMessage('Error al enviar la reseña. Intenta de nuevo.');
-      console.error('Error submitting review:', error);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Error submitting review:', error);
+      }
     }
   };
 
