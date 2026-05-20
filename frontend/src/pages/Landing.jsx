@@ -545,7 +545,7 @@ const Landing = () => {
             </h3>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <a 
-                href={socialMedia.facebook || '#'} 
+                href="https://www.facebook.com/share/18Vaxyzn4y/?mibextid=wwXIfr" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-blue-700 shadow-xl shadow-blue-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-blue-500/50"
@@ -555,7 +555,7 @@ const Landing = () => {
               </a>
               
               <a 
-                href={socialMedia.instagram || '#'} 
+                href="https://www.instagram.com/stech_masters?igsh=aTZlMzVib3JtYTNk&utm_source=qr" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-pink-500 via-rose-500 to-purple-600 shadow-xl shadow-pink-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-pink-500/50"
@@ -565,7 +565,7 @@ const Landing = () => {
               </a>
               
               <a 
-                href={socialMedia.youtube || '#'} 
+                href="https://youtube.com/@techmasterssolutions?si=7WpUBeJuCiEwTLBg" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-red-600 to-red-700 shadow-xl shadow-red-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-red-500/50"
@@ -575,7 +575,7 @@ const Landing = () => {
               </a>
               
               <a 
-                href={socialMedia.tiktok || '#'} 
+                href="https://www.tiktok.com/@stech_masters?_r=1&_t=ZP-96W98XiEGwZ" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="group relative flex h-16 w-16 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-black shadow-xl shadow-slate-500/30 transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-slate-500/50"
