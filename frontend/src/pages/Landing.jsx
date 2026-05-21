@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Phone, MessageSquare, Mail, Facebook, Instagram, Youtube, Star } from 'lucide-react';
+import { Phone, MessageSquare, Mail, Facebook, Instagram, Youtube } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { contactInfo, services, benefits, images } from '../utils/mockData';
@@ -28,15 +28,6 @@ const Landing = () => {
     window.addEventListener('scroll', handleScroll);
 
     fetchSocialMedia();
-
-    // Load Elfsight platform script (once)
-    if (!document.querySelector('script[data-elfsight]')) {
-      const script = document.createElement('script');
-      script.src = 'https://elfsightcdn.com/platform.js';
-      script.async = true;
-      script.setAttribute('data-elfsight', 'true');
-      document.body.appendChild(script);
-    }
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [fetchSocialMedia]);
@@ -374,34 +365,16 @@ const Landing = () => {
             </p>
           </div>
 
-          {/* Elfsight Google Reviews Widget Placeholder */}
-          <div className="mx-auto mb-10 max-w-6xl rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-lg">
-            <div
-              className="elfsight-app-PLACEHOLDER"
-              data-elfsight-app-lazy
+          {/* Elfsight Google Reviews Widget */}
+          <div className="mx-auto mb-10 max-w-6xl rounded-3xl border border-white/10 bg-white/5 p-2 sm:p-4 shadow-2xl backdrop-blur-lg">
+            <iframe
+              src="https://d6020910eb504533b30218f409c484c3.elf.site"
+              title="Reseñas de Google - Tech Masters Solutions"
+              loading="lazy"
+              className="block w-full rounded-2xl"
+              style={{ height: '600px', border: 'none', background: 'transparent' }}
               data-testid="google-reviews-widget"
-            >
-              {/* Fallback content while widget loads/configured */}
-              <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
-                <div className="flex gap-1 text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-7 w-7 fill-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-base text-slate-300">
-                  Cargando reseñas de Google...
-                </p>
-                <a
-                  href={GOOGLE_REVIEW_URL.replace('/review', '')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-bold text-cyan-400 underline-offset-4 hover:underline"
-                  data-testid="google-profile-link"
-                >
-                  Ver perfil de Google
-                </a>
-              </div>
-            </div>
+            ></iframe>
           </div>
 
           {/* CTA: Leave a Google review */}
