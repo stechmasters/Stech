@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Phone, MessageSquare, Mail, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Phone, MessageSquare, Mail, Facebook, Instagram, Youtube, Star } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { contactInfo, services, benefits, reviews, paymentMethods, images } from '../utils/mockData';
+import { Card, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
+import { contactInfo, services, benefits, images } from '../utils/mockData';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const GOOGLE_REVIEW_URL = 'https://g.page/r/Cf38h7Od99BsEBM/review';
 
 const Landing = () => {
-  const [socialMedia, setSocialMedia] = useState({ facebook: '', instagram: '', twitter: '', linkedin: '', youtube: '', tiktok: '' });
+  const [, setSocialMedia] = useState({ facebook: '', instagram: '', twitter: '', linkedin: '', youtube: '', tiktok: '' });
   const [scrollY, setScrollY] = useState(0);
-  const [customerReviews, setCustomerReviews] = useState([]);
-  const [showReviewForm, setShowReviewForm] = useState(false);
-  const [reviewForm, setReviewForm] = useState({ rating: 5, text: '', author: '' });
-  const [submitMessage, setSubmitMessage] = useState('');
 
   const fetchSocialMedia = useCallback(async () => {
     try {
@@ -26,43 +23,23 @@ const Landing = () => {
     }
   }, []);
 
-  const fetchReviews = useCallback(async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/api/reviews`);
-      setCustomerReviews(response.data);
-    } catch (error) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Error fetching reviews:', error);
-      }
-    }
-  }, []);
-
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('scroll', handleScroll);
-    
-    fetchSocialMedia();
-    fetchReviews();
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [fetchSocialMedia, fetchReviews]);
 
-  const handleSubmitReview = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post(`${BACKEND_URL}/api/reviews`, reviewForm);
-      setSubmitMessage('¡Gracias por tu reseña! Se ha publicado exitosamente.');
-      setReviewForm({ rating: 5, text: '', author: '' });
-      setShowReviewForm(false);
-      fetchReviews(); // Refresh reviews
-      setTimeout(() => setSubmitMessage(''), 5000);
-    } catch (error) {
-      setSubmitMessage('Error al enviar la reseña. Intenta de nuevo.');
-      if (process.env.NODE_ENV === 'development') {
-        console.error('Error submitting review:', error);
-      }
+    fetchSocialMedia();
+
+    // Load Elfsight platform script (once)
+    if (!document.querySelector('script[data-elfsight]')) {
+      const script = document.createElement('script');
+      script.src = 'https://elfsightcdn.com/platform.js';
+      script.async = true;
+      script.setAttribute('data-elfsight', 'true');
+      document.body.appendChild(script);
     }
-  };
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [fetchSocialMedia]);
 
   const handleCall = () => {
     window.location.href = `tel:${contactInfo.phoneLink}`;
@@ -376,118 +353,78 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Reviews Section */}
-      <section className="py-16">
+      {/* Google Reviews Section */}
+      <section className="py-16" id="reviews">
         <div className="container mx-auto px-4">
-          <div className="mb-12 text-center">
+          <div className="mb-10 text-center">
+            <div className="mb-4 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-2 backdrop-blur-sm">
+              <svg className="h-6 w-6" viewBox="0 0 48 48" aria-hidden="true">
+                <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"/>
+                <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                <path fill="#1976D2" d="M43.611 20.083L43.595 20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+              </svg>
+              <span className="text-sm font-extrabold uppercase tracking-wider text-white">Reseñas verificadas de Google</span>
+            </div>
             <h3 className="mb-3 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-5xl font-black text-transparent">
               Lo que dicen nuestros clientes
             </h3>
-            <p className="text-lg text-slate-300">
-              La satisfacción de nuestros clientes es nuestro mejor respaldo. Lee lo que opinan sobre nuestro servicio.
+            <p className="mx-auto max-w-2xl text-lg text-slate-300">
+              Lee las opiniones reales de quienes ya confiaron en Tech Masters Solutions. Tu satisfacción es nuestro mejor respaldo.
             </p>
           </div>
 
-          {submitMessage && (
-            <div className="mx-auto mb-6 max-w-2xl rounded-2xl bg-green-500/20 border border-green-500/50 p-4 text-center text-green-300">
-              {submitMessage}
-            </div>
-          )}
-
-          <div className="mb-8 text-center">
-            <Button
-              onClick={() => setShowReviewForm(!showReviewForm)}
-              className="group bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-500 px-8 py-6 font-extrabold text-black shadow-2xl shadow-yellow-500/40 transition-all duration-300 hover:scale-105"
+          {/* Elfsight Google Reviews Widget Placeholder */}
+          <div className="mx-auto mb-10 max-w-6xl rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-lg">
+            <div
+              className="elfsight-app-PLACEHOLDER"
+              data-elfsight-app-lazy
+              data-testid="google-reviews-widget"
             >
-              ⭐ {showReviewForm ? 'Cerrar' : 'Dejar una Reseña'}
-            </Button>
+              {/* Fallback content while widget loads/configured */}
+              <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
+                <div className="flex gap-1 text-yellow-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-7 w-7 fill-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-base text-slate-300">
+                  Cargando reseñas de Google...
+                </p>
+                <a
+                  href={GOOGLE_REVIEW_URL.replace('/review', '')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-bold text-cyan-400 underline-offset-4 hover:underline"
+                  data-testid="google-profile-link"
+                >
+                  Ver perfil de Google
+                </a>
+              </div>
+            </div>
           </div>
 
-          {showReviewForm && (
-            <Card className="mx-auto mb-12 max-w-2xl border-white/20 bg-gradient-to-br from-slate-800/90 to-slate-900/90 p-8 shadow-2xl backdrop-blur-lg">
-              <form onSubmit={handleSubmitReview}>
-                <div className="mb-6">
-                  <label className="mb-2 block text-lg font-bold text-white">Tu Nombre</label>
-                  <input
-                    type="text"
-                    required
-                    value={reviewForm.author}
-                    onChange={(e) => setReviewForm({...reviewForm, author: e.target.value})}
-                    className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-400 backdrop-blur-sm focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    placeholder="Ej: Juan Pérez"
-                  />
-                </div>
-
-                <div className="mb-6">
-                  <label className="mb-2 block text-lg font-bold text-white">Calificación</label>
-                  <div className="flex gap-2">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        key={star}
-                        type="button"
-                        onClick={() => setReviewForm({...reviewForm, rating: star})}
-                        className={`text-4xl transition-all ${reviewForm.rating >= star ? 'text-yellow-400 scale-110' : 'text-slate-600'}`}
-                      >
-                        ★
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <label className="mb-2 block text-lg font-bold text-white">Tu Reseña</label>
-                  <textarea
-                    required
-                    value={reviewForm.text}
-                    onChange={(e) => setReviewForm({...reviewForm, text: e.target.value})}
-                    rows="4"
-                    className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3 text-white placeholder-slate-400 backdrop-blur-sm focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                    placeholder="Cuéntanos sobre tu experiencia con nuestro servicio..."
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-green-500 to-emerald-600 py-6 text-lg font-black shadow-2xl shadow-green-500/40 transition-all hover:scale-105"
-                >
-                  Enviar Reseña
-                </Button>
-              </form>
-            </Card>
-          )}
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {customerReviews.length > 0 ? (
-              customerReviews.map((review, index) => (
-                <Card 
-                  key={review.id} 
-                  className="group border-white/10 bg-white/5 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-white/20 hover:shadow-yellow-500/20"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <CardHeader>
-                    <div className="mb-3 text-2xl tracking-widest text-yellow-400">
-                      {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
-                    </div>
-                    <CardDescription className="text-base text-slate-300">{review.text}</CardDescription>
-                    <div className="mt-4 font-extrabold text-cyan-400">{review.author}</div>
-                  </CardHeader>
-                </Card>
-              ))
-            ) : (
-              reviews.map((review, index) => (
-                <Card 
-                  key={review.id} 
-                  className="group border-white/10 bg-white/5 shadow-2xl backdrop-blur-lg transition-all hover:-translate-y-2 hover:border-white/20 hover:shadow-yellow-500/20"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <CardHeader>
-                    <div className="mb-3 text-2xl tracking-widest text-yellow-400">★★★★★</div>
-                    <CardDescription className="text-base text-slate-300">{review.text}</CardDescription>
-                    <div className="mt-4 font-extrabold text-cyan-400">{review.author}</div>
-                  </CardHeader>
-                </Card>
-              ))
-            )}
+          {/* CTA: Leave a Google review */}
+          <div className="text-center">
+            <a
+              href={GOOGLE_REVIEW_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 px-8 py-5 text-base font-extrabold text-white shadow-2xl shadow-blue-500/40 transition-all duration-300 hover:scale-105 hover:shadow-blue-400/60 sm:text-lg"
+              data-testid="leave-google-review-btn"
+            >
+              <svg className="h-6 w-6" viewBox="0 0 48 48" aria-hidden="true">
+                <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"/>
+                <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                <path fill="#1976D2" d="M43.611 20.083L43.595 20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+              </svg>
+              Déjanos una reseña en Google
+              <span className="hidden sm:inline">⭐</span>
+            </a>
+            <p className="mt-3 text-sm text-slate-400">
+              Solo te tomará 30 segundos y nos ayuda muchísimo a crecer.
+            </p>
           </div>
         </div>
       </section>
