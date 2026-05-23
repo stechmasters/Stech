@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+# Sitemap
+Sitemap: https://techmasterssolutions.com/sitemap.xml
+
+# Crawl-delay (optional - polite)
+Crawl-delay: 1
